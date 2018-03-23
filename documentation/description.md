@@ -28,4 +28,4 @@ Kerrataan aluksi vielä projektin kuvaus.
 
 ![Projektin tietokantakaavio](https://yuml.me/504428db.png)
 
-[PDF](https://yuml.me/504428db.pdf)| [yUML](https://yuml.me/edit/504428db)
+[PDF](https://yuml.me/504428db.pdf) | [yUML](https://yuml.me/edit/504428db)
