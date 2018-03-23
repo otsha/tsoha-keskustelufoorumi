@@ -8,9 +8,7 @@ Kerrataan aluksi vielä projektin kuvaus.
 
 *Järjestelmän ylläpitäjällä on oma liittymä, jonka kautta hän ylläpitää järjestön käyttäjien jäsentietoja ja heidän kuulumistan eri ryhmiin, siivota kirjoituskantaa ja määrittellä aiheita, joiden perusteella kirjoituksia voi ryhmitellä.*
 
-***Kommentti:** Ryhmien tarpeellisuutta ja käyttötarkoitusta pohditaan vielä, samoin toteutusta informaatiolle, jolla näytetään käyttäjälle, ovatko kaikki yhteisön jäsenet jo lukeneet viestin. Dokumentaatio päivittyy.*
-
-### Toimintoja
+## Toimintoja
 
 * Kirjautuminen
 * Kirjoituksen lisääminen
@@ -20,12 +18,14 @@ Kerrataan aluksi vielä projektin kuvaus.
 * Kirjoitusten poistaminen
 * Aiheiden määrittely, muokkaus ja poisto
 
-### Alustava luokkakaavio
-![Projektin luokkakaavio](https://yuml.me/d119b356.png)
+## Alustava tietokantakaavio
+**Tietokohteet:**
+* Ryhmä (käyttötarkoitus vielä pohdinnassa)
+* Käyttäjä
+* Lanka (artikkeli, aloitusviesti)
+* Vastaus (aina ja vain lankaan)
+* Kategoria (aihe, tag, ylläpitäjän määrittelemä)
 
-[PDF](https://yuml.me/d119b356.pdf) | [yUML](https://yuml.me/edit/d119b356)
+![Projektin tietokantakaavio](https://yuml.me/504428db.png)
 
-### Alustava tietokantakaavio
-![Projektin tietokantakaavio](https://yuml.me/afa5041f.png)
-
-[PDF](https://yuml.me/afa5041f.pdf)| [yUML](https://yuml.me/edit/afa5041f)
+[PDF](https://yuml.me/504428db.pdf)| [yUML](https://yuml.me/edit/504428db)
