@@ -1,5 +1,7 @@
 from application import app, db
 from flask import render_template, request, redirect, url_for
+from flask_login import login_required
+
 from application.database.models import Message
 from application.database.forms import MessageForm
 
@@ -10,11 +12,13 @@ def messages_index():
 
 # GET new message page
 @app.route("/messages/new/", methods=["GET"])
+@login_required
 def messages_form():
     return render_template("messages/new.html", form = MessageForm())
 
 # POST set message to read
 @app.route("/messages/<message_id>/read/", methods = ["POST"])
+@login_required
 def messages_set_read(message_id):
     m = Message.query.get(message_id)
 
@@ -25,6 +29,7 @@ def messages_set_read(message_id):
 
 # POST create new message
 @app.route("/messages/", methods = ["POST"])
+@login_required
 def messages_create():
     form = MessageForm(request.form)
 
