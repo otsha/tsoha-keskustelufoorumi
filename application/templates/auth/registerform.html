@@ -1,5 +1,5 @@
 {% extends "layout.html" %} {% block body %} {{ error }}
-<form method="POST" action="{{ url_for('auth_login') }}">
+<form method="POST" action="{{ url_for('auth_register') }}">
     <table>
         <tr>
             <td>
@@ -19,12 +19,12 @@
         </tr>
         <tr>
             <td colspan="2">
-                <input type="submit" value="Login" />
+                <input type="submit" value="Register" />
             </td>
         </tr>
         <tr>
             <td>
-                Not an user? [<a href="{{ url_for('auth_register') }}">Register</a>]
+                Already registered? [<a href="{{ url_for('auth_login') }}">Login</a>]
             </td>
         </tr>
     </table>

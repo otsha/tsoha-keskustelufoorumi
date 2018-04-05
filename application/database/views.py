@@ -1,7 +1,7 @@
-from application import app, db
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required
 
+from application import app, db
 from application.database.models import Message
 from application.database.forms import MessageForm
 
