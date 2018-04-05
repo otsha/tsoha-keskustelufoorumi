@@ -8,6 +8,8 @@
   <body>
     <a href="{{ url_for('messages_index') }}">Dashboard</a><br/>
     <a href="{{ url_for('messages_form') }}">New message</a><br/>
+    <a href="{{ url_for('auth_login') }}">Login</a>
+    <hr>
     {% block body %}
       <p>
         Content.

@@ -14,9 +14,13 @@ db = SQLAlchemy(app)
 # Import content viewed to user
 from application import views
 from application.database import views
+from application.auth import views
 
 # Import database data models
 from application.database import models
+
+# Import authentication models
+from application.auth import models
 
 # Create database tables
 db.create_all()
