@@ -8,7 +8,7 @@
         </tr>
         {% for message in messages %}
         <tr>
-            <td>{{ message.content }}</td>
+            <td>{{ message.name }}</td>
             <td>{{ message.read }}</td>
             <td>
                 <form method="POST" action="{{ url_for('messages_set_read', message_id=message.id) }}">
