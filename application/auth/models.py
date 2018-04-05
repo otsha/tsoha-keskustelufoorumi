@@ -12,6 +12,8 @@ class User(db.Model):
     password = db.Column(db.String(144), nullable = False)
     isSuper = db.Column(db.Boolean, nullable = False)
 
+    tasks = db.relationship("Message", backref = 'account', lazy = True)
+
     def __init__(self, username, password):
         self.username = username
         self.password = password

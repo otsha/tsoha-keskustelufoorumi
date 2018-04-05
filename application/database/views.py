@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from application import app, db
 from application.database.models import Message
@@ -38,6 +38,7 @@ def messages_create():
 
     m = Message(form.name.data)
     m.content = form.content.data
+    m.account_id = current_user.id
 
     db.session().add(m)
     db.session().commit()
