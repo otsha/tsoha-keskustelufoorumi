@@ -8,7 +8,12 @@
 </p>
 
 {% if current_user.id == user.id or current_user.isSuper == True %}
-[<a href="{{ url_for('message_edit', message_id=message.id) }}">Edit</a>]
+[<a href="{{ url_for('message_edit', message_id=message.id) }}">Edit</a>]<br/>
+<p>
+<form method="POST" action="{{ url_for('message_delete', message_id=message.id) }}">
+    <input type="submit" value="DELETE"/>
+</form>
+</p>
 {% else %}
 {% endif %}
 {% endblock %}

@@ -55,6 +55,27 @@ def message_view(message_id):
 
     return render_template("messages/message.html", message = m, user = u)
 
+# POST delete message
+@app.route("/messages/<message_id>/delete/", methods = ["POST"])
+@login_required
+def message_delete(message_id):
+    m = Message.query.get(message_id)
+
+    # Check if the user is a Super or the original poster (this is already checked in the html, but JUST IN CASE)
+    if m.account_id != current_user.id:
+        if current_user.isSuper == False:
+            return redirect(url_for("message_view", message_id=m.id))
+        else:
+            pass
+    
+    # Delete the message from the database
+    db.session().delete(m)
+    db.session().commit()
+
+    # < Deleting all the replies to this message goes here at a later date >
+
+    return redirect(url_for("messages_index"))
+
 # HANDLE message editing
 @app.route("/messages/<message_id>/edit/", methods = ["GET", "POST"])
 @login_required
