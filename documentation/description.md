@@ -10,13 +10,13 @@ Kerrataan aluksi vielä projektin kuvaus.
 
 ## Toimintoja
 
-* Kirjautuminen
-* Kirjoituksen lisääminen
-* Kirjoitusten näyttäminen eri kriteerein
-* Ryhmän jäsenen lisääminen, muokkaaminen ja poistaminen
-* Vastineen laatiminen ja muokkaus
-* Kirjoitusten poistaminen
-* Aiheiden määrittely, muokkaus ja poisto
+- [x] Kirjautuminen
+- [x] Kirjoituksen lisääminen
+- [ ] Kirjoitusten näyttäminen eri kriteerein
+- [ ] Ryhmän jäsenen lisääminen, muokkaaminen ja poistaminen
+- [ ] Vastineen laatiminen ja muokkaus
+- [x] Kirjoitusten poistaminen
+- [ ] Aiheiden määrittely, muokkaus ja poisto
 
 ## Alustava tietokantakaavio
 **Tietokohteet:**
