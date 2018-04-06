@@ -1,8 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
+{{ error }}
 <h1> {{ message.name }} </h1>
 <p>Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }} | By: {{ user.username }} </p>
 <p>
     {{ message.content }}
 </p>
+
+{% if current_user.id == user.id or current_user.isSuper == True %}
+[<a href="{{ url_for('message_edit', message_id=message.id) }}">Edit</a>]
+{% else %}
+{% endif %}
 {% endblock %}

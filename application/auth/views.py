@@ -17,9 +17,10 @@ def auth_login():
     if not user:
         return render_template("auth/loginform.html", form = form, error = "Incorrect username or password")
     
+    # Return to the dashboard
     login_user(user)
-    print("User" + user.username + " authenticated")
-    return redirect(url_for("index"))
+    print("User " + user.username + " authenticated")
+    return redirect(url_for("messages_index"))
 
 # Handle the register page
 @app.route("/auth/register", methods = ["GET", "POST"])
@@ -43,6 +44,7 @@ def auth_register():
     db.session().add(a)
     db.session().commit()
 
+    # Return the login page
     return redirect(url_for("auth_login"))
 
 # Handle logging out

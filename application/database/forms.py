@@ -8,3 +8,10 @@ class MessageForm(FlaskForm):
 
     class Meta:
         csrf = False
+
+class MessageEditForm(FlaskForm):
+    name = StringField("Post title", [validators.Length(min=2)])
+    content = TextAreaField("Post content", [validators.Length(min=3)])
+
+    class Meta:
+        csrf = False
