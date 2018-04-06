@@ -1,5 +1,6 @@
 from application import db
 
+# Define the database model for a message
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     date_created = db.Column(db.DateTime, default = db.func.current_timestamp())

@@ -1,5 +1,6 @@
 from application import db
 
+# Define User/account model for SQLAlchemy
 class User(db.Model):
     
     __tablename__ = "account"

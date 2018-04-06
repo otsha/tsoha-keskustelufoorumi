@@ -5,6 +5,7 @@ from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm, RegisterForm
 
+# Handle the login page
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
     if request.method == "GET":
@@ -20,6 +21,7 @@ def auth_login():
     print("User" + user.username + " authenticated")
     return redirect(url_for("index"))
 
+# Handle the register page
 @app.route("/auth/register", methods = ["GET", "POST"])
 def auth_register():
     if request.method == "GET":
@@ -43,6 +45,7 @@ def auth_register():
 
     return redirect(url_for("auth_login"))
 
+# Handle logging out
 @app.route("/auth/logout")
 def auth_logout():
     logout_user()

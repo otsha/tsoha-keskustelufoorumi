@@ -36,6 +36,7 @@ def messages_create():
     if not form.validate():
         return render_template("messages/new.html", form = form)
 
+    # Create a message object and add it to the database
     m = Message(form.name.data)
     m.content = form.content.data
     m.account_id = current_user.id
