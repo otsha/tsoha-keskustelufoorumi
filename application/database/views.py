@@ -4,8 +4,9 @@ from flask_login import login_required, current_user
 from application import app, db
 from application.database.models import Message
 from application.database.forms import MessageForm
+from application.auth.models import User
 
-# GET messages page
+# GET all messages (dashboard) page
 @app.route("/messages/", methods=["GET"])
 def messages_index():
     return render_template("messages/list.html", messages = Message.query.all())
@@ -46,3 +47,10 @@ def messages_create():
 
     return redirect(url_for("messages_index"))
 
+# GET message page (a specific post)
+@app.route("/messages/<message_id>/")
+def message_view(message_id):
+    m = Message.query.get(message_id)
+    u = User.query.get(m.account_id)
+
+    return render_template("messages/message.html", message = m, user = u)

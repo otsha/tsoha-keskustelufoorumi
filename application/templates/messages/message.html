@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1> {{ message.name }} </h1>
+<p>Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }} | By: {{ user.username }} </p>
+<p>
+    {{ message.content }}
+</p>
+{% endblock %}
