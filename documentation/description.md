@@ -15,6 +15,8 @@ Kerrataan aluksi vielä projektin kuvaus.
 - [ ] Kirjoitusten näyttäminen eri kriteerein
 - [ ] Ryhmän jäsenen lisääminen, muokkaaminen ja poistaminen
 - [ ] Vastineen laatiminen ja muokkaus
+  - [x] Laatiminen ja poisto
+  - [ ] Muokkaus
 - [x] Kirjoitusten poistaminen
 - [ ] Aiheiden määrittely, muokkaus ja poisto
 
