@@ -70,11 +70,12 @@ def message_delete(message_id):
         else:
             pass
     
+    # Delete all the replies to this post
+    m.deleteAllReplies(m.id)
+
     # Delete the message from the database
     db.session().delete(m)
     db.session().commit()
-
-    # < Deleting all the replies to this message goes here at a later date >
 
     return redirect(url_for("messages_index"))
 

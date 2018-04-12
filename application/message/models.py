@@ -21,7 +21,8 @@ class Message(Base):
     @staticmethod
     def findAllReplies(message_id):
         stmt = text("SELECT Reply.id, Reply.account_id from Reply"
-                        " WHERE Reply.message_id = :message_id").params(message_id = message_id)
+                        " WHERE Reply.message_id = :message_id"
+                        " ORDER BY Reply.date_created").params(message_id = message_id)
         res = db.engine.execute(stmt)
 
         response = []
@@ -31,3 +32,9 @@ class Message(Base):
             response.append({"reply":r, "user":u})
 
         return response
+
+    @staticmethod
+    def deleteAllReplies(message_id):
+        stmt = text("DELETE FROM Reply"
+                        " WHERE Reply.message_id = :message_id").params(message_id = message_id)
+        db.engine.execute(stmt)
