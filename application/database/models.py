@@ -1,11 +1,9 @@
 from application import db
+from application.models import Base
 
 # Define the database model for a message
-class Message(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    date_created = db.Column(db.DateTime, default = db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default = db.func.current_timestamp(), onupdate = db.func.current_timestamp())
-
+class Message(Base):
+    
     name = db.Column(db.String(140), nullable = False)
     content = db.Column(db.String(1000), nullable = False)
     read = db.Column(db.Boolean, nullable = False)
