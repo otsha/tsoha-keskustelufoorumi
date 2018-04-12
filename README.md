@@ -5,6 +5,7 @@
 * Sovellus on livenä osoitteessa: (https://keskustelufoorumi-tsoha.herokuapp.com/)
   * Testikäyttäjätunnus: hello
   * Salasana: world
+  * CRUD-toiminnallisuus on toteutettu viesteihin (HUOM! Vain rekisteröityneille käyttäjille & viestiä voi muokata / sen voi poistaa vain sen alkuperäinen kirjoittaja!)
   
 * [Projektin määrittelydokumentti](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/description.md)
 
