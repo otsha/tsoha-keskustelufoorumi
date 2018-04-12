@@ -2,8 +2,8 @@ from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
 from application import app, db
-from application.database.models import Message
-from application.database.forms import MessageForm, MessageEditForm
+from application.message.models import Message
+from application.message.forms import MessageForm, MessageEditForm
 from application.auth.models import User
 
 # GET all messages (dashboard) page

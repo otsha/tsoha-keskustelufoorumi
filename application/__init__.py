@@ -21,11 +21,11 @@ db = SQLAlchemy(app)
 
 # Import content viewed to user
 from application import views
-from application.database import views
+from application.message import views
 from application.auth import views
 
 # Import database data models
-from application.database import models
+from application.message import models
 
 # Import authentication models
 from application.auth import models
