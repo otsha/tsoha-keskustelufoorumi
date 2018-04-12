@@ -1,19 +1,46 @@
-{% extends "layout.html" %}
-{% block body %}
-{{ error }}
+{% extends "layout.html" %} {% block body %} {{ error }}
 <h1> {{ message.name }} </h1>
 <p>Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }} | By: {{ user.username }} </p>
 <p>
     {{ message.content }}
 </p>
-
+[<a href="{{ url_for('message_new_reply', message_id=message.id) }}">Reply</a>] 
 {% if current_user.id == user.id or current_user.isSuper == True %}
-[<a href="{{ url_for('message_edit', message_id=message.id) }}">Edit</a>]<br/>
+[<a href="{{ url_for('message_edit', message_id=message.id) }}">Edit</a>]
+<br/>
 <p>
-<form method="POST" action="{{ url_for('message_delete', message_id=message.id) }}">
-    <input type="submit" value="DELETE"/>
-</form>
+    <form method="POST" action="{{ url_for('message_delete', message_id=message.id) }}">
+        <input type="submit" value="DELETE" />
+    </form>
 </p>
-{% else %}
+<hr> 
 {% endif %}
-{% endblock %}
+
+{% for reply in replies %}
+<table>
+    <tr>
+        <td>
+            Reply #{{ reply.reply.id }} || On: {{ reply.reply.date_created }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            By: {{ reply.user.username }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>{{ reply.reply.content }}</p>
+        </td>
+    </tr>
+    {% if current_user.id == reply.user.id or current_user.isSuper == True %}
+    <tr>
+        <td>
+            <form method="POST" action="{{ url_for('reply_delete', message_id=message.id, reply_id=reply.reply.id) }}">
+                <input type="submit" value="x"/>
+            </form>
+        </td>
+    </tr>
+    {% endif %}
+</table>
+<hr> {% endfor %} {% endblock %}

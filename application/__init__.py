@@ -26,9 +26,8 @@ from application.auth import views
 
 # Import database data models
 from application.message import models
-
-# Import authentication models
 from application.auth import models
+from application.reply import models
 
 # Logging in
 from application.auth.models import User
