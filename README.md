@@ -2,14 +2,16 @@
 
 ## Harjoitustyö kevään 2018 kurssille 'Tietokantasovellus' (tsoha)
 
-* Sovellus on livenä osoitteessa: (https://keskustelufoorumi-tsoha.herokuapp.com/)
-  * Testikäyttäjätunnus: hello
-  * Salasana: world
-  * CRUD-toiminnallisuus on toteutettu viesteihin (HUOM! Vain rekisteröityneille käyttäjille & viestiä voi muokata / sen voi poistaa vain sen alkuperäinen kirjoittaja!)
-  
 * [Projektin määrittelydokumentti](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/description.md)
 
 * [Projektin alustava tietokantakaavio](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/databasediagram.png)
+
+* Sovellus on livenä osoitteessa: (https://keskustelufoorumi-tsoha.herokuapp.com/)
+  * Testikäyttäjätunnus: hello
+  * Salasana: world
+  * **CRUD-toiminnallisuus** on toteutettu viesteihin (HUOM! Vain rekisteröityneille käyttäjille & viestiä voi muokata / sen voi poistaa vain sen alkuperäinen kirjoittaja!)
+  * Sovelluksessa on käytössä kolme tietokantataulua: **User**, **Message** (topic/thread/lanka) ja **Reply** (vastaus johonkin lankaan)
+  * Monimutkaisempi yhteenvetokysely on toteutettu malliin *application.message.models* (tietyn viestin kaikkien vastineiden haku ja listaus ajallisesti järjestettynä)
 
 ## Kuvaus:
 
