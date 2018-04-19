@@ -7,6 +7,7 @@ from application.message.forms import MessageForm, MessageEditForm
 from application.auth.models import User
 from application.reply.models import Reply
 from application.reply.forms import ReplyForm, ReplyEditForm
+from application.readmessage.models import ReadMessage
 
 # GET all messages (dashboard) page
 @app.route("/messages/", methods=["GET"])
@@ -24,11 +25,15 @@ def messages_form():
 @login_required
 def messages_set_read(message_id):
     m = Message.query.get(message_id)
+    u = current_user
+    
+    if ReadMessage.hasUserReadMessage(u.id, m.id) == False:
+        rm = ReadMessage(u.id, m.id)
 
-    m.read = True
-    db.session().commit()
+        db.session().add(rm)
+        db.session().commit()
 
-    return redirect(url_for("messages_index"))
+    return redirect(url_for("message_view", message_id = m.id))
 
 # POST create new message
 @app.route("/messages/", methods = ["POST"])
@@ -55,7 +60,10 @@ def message_view(message_id):
     m = Message.query.get(message_id)
     u = User.query.get(m.account_id)
 
-    return render_template("messages/message.html", message = m, user = u, replies = m.findAllReplies(m.id))
+    # List of the users who have read this message
+    readers = ReadMessage.findAllUsersWhoRead(m.id)
+
+    return render_template("messages/message.html", message = m, user = u, readers = readers, replies = m.findAllReplies(m.id))
 
 # POST delete message
 @app.route("/messages/<message_id>/delete/", methods = ["POST"])

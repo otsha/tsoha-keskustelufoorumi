@@ -28,6 +28,7 @@ from application.auth import views
 from application.message import models
 from application.auth import models
 from application.reply import models
+from application.readmessage import models
 
 # Logging in
 from application.auth.models import User

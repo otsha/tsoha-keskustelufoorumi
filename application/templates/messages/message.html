@@ -1,6 +1,7 @@
 {% extends "layout.html" %} {% block body %} {{ error }}
 <h1> {{ message.name }} </h1>
-<p>Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }} | By: <a href="{{ url_for('view_user', user_id=user.id) }}">{{ user.username }}</a> </p>
+<p style="font-style:italic">Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }} | By: <a href="{{ url_for('view_user', user_id=user.id) }}">{{ user.username }}</a> </p>
+<hr>
 <p>
     {{ message.content }}
 </p>
@@ -13,9 +14,12 @@
         <input type="submit" value="Delete" />
     </form>
 </p>
-<hr> 
 {% endif %}
-
+<hr>
+{% for reader in readers %}
+    <span><a href="{{ url_for('view_user', user_id=reader.user.id) }}">{{ reader.user.username }}</a>, </span>
+{% endfor %}
+<hr>
 {% for reply in replies %}
 <table>
     <tr>
