@@ -1,6 +1,10 @@
-{% extends "layout.html" %}
-{% block body %}
-{{ error }}
+{% extends "layout.html" %} {% block body %} {{ error }}
+<h1>Editing: {{ message.name }} </h1>
+<p>Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }}</p>
+<p>
+    {{ message.content }}
+</p>
+<hr>
 <form method="POST" action="{{ url_for('message_edit', message_id=message.id) }}">
     <table>
         <tr>
