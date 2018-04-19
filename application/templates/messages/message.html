@@ -16,6 +16,7 @@
 </p>
 {% endif %}
 <hr>
+<span>Users who have read this message: </span>
 {% for reader in readers %}
     <span><a href="{{ url_for('view_user', user_id=reader.user.id) }}">{{ reader.user.username }}</a>, </span>
 {% endfor %}
