@@ -10,7 +10,7 @@
 <br/>
 <p>
     <form method="POST" action="{{ url_for('message_delete', message_id=message.id) }}">
-        <input type="submit" value="DELETE" />
+        <input type="submit" value="Delete" />
     </form>
 </p>
 <hr> 
@@ -36,8 +36,11 @@
     {% if current_user.id == reply.user.id or current_user.isSuper == True %}
     <tr>
         <td>
+            [<a href="{{ url_for('reply_edit', message_id=message.id, reply_id=reply.reply.id) }}">Edit</a>]
+        </td>
+        <td>
             <form method="POST" action="{{ url_for('reply_delete', message_id=message.id, reply_id=reply.reply.id) }}">
-                <input type="submit" value="x"/>
+                <input type="submit" value="Delete"/>
             </form>
         </td>
     </tr>

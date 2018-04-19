@@ -6,7 +6,7 @@ from application.message.models import Message
 from application.message.forms import MessageForm, MessageEditForm
 from application.auth.models import User
 from application.reply.models import Reply
-from application.reply.forms import ReplyForm
+from application.reply.forms import ReplyForm, ReplyEditForm
 
 # GET all messages (dashboard) page
 @app.route("/messages/", methods=["GET"])
@@ -157,3 +157,34 @@ def reply_delete(message_id, reply_id):
     db.session().commit()
 
     return redirect(url_for("message_view", message_id=message_id))
+
+# HANDLE editing a reply
+@app.route("/messages/<message_id>/replies/<reply_id>/edit/", methods = ["GET", "POST"])
+@login_required
+def reply_edit(message_id, reply_id):
+    m = Message.query.get(message_id)
+    r = Reply.query.get(reply_id)
+    form = ReplyEditForm(request.form)
+
+    # Check if the user is a Super or the original poster (this is already checked in the html, but JUST IN CASE)
+    if m.account_id != current_user.id:
+        if current_user.isSuper == False:
+            return redirect(url_for("message_view", message_id=m.id))
+        else:
+            pass
+
+    # Return the edit view
+    if request.method == "GET":
+        return render_template("reply/edit.html", message = m, reply = r, form = form)
+
+    # Update the database
+    if not form.validate():
+        return render_template("reply/edit.html", message = m, reply = r, form = form)
+
+    # Update the title and contents of the message to the database
+    r.content = form.content.data
+
+    db.session().add(r)
+    db.session().commit()
+
+    return redirect(url_for("message_view", message_id=m.id))

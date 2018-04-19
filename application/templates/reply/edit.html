@@ -1,0 +1,25 @@
+{% extends "layout.html" %} {% block body %} {{ error }}
+<h1>Editing: A reply to {{ message.name }} </h1>
+<p>Posted: {{ reply.date_created }} | Last edit: {{ reply.date_modified }}</p>
+<p>
+    {{ reply.content }}
+</p>
+<hr>
+<form method="POST" action="{{ url_for('reply_edit', message_id=message.id, reply_id=reply.id) }}">
+    <table>
+        <tr>
+            <td>
+                {{ form.content.label }}
+            </td>
+            <td>
+                {{ form.content(rows='10',cols='100') }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Confirm" />
+            </td>
+        </tr>
+    </table>
+</form>
+{% endblock %}
