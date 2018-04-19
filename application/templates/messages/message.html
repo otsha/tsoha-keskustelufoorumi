@@ -1,6 +1,6 @@
 {% extends "layout.html" %} {% block body %} {{ error }}
 <h1> {{ message.name }} </h1>
-<p>Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }} | By: {{ user.username }} </p>
+<p>Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }} | By: <a href="{{ url_for('view_user', user_id=user.id) }}">{{ user.username }}</a> </p>
 <p>
     {{ message.content }}
 </p>
