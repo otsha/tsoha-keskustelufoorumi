@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 from application import app, db
 from application.auth.models import User
@@ -77,7 +77,7 @@ def promote_user(user_id):
     u = User.query.get(user_id)
 
     # Make sure that the current user is allowed to do this
-    if not current.user.isSuper:
+    if not current_user.isSuper:
         return redirect(url_for("view_user", user_id=u.id))
 
     u.isSuper = True
@@ -99,7 +99,7 @@ def demote_user(user_id):
 
     # Make sure that the current user is allowed to do this
 
-    if not current.user.isSuper:
+    if not current_user.isSuper:
         return redirect(url_for("view_user", user_id=u.id))
 
     return redirect(url_for("view_user", user_id=u.id))
