@@ -9,7 +9,7 @@ from application.reply.models import Reply
 from application.reply.forms import ReplyForm, ReplyEditForm
 from application.readmessage.models import ReadMessage
 
-# GET all messages (dashboard) page
+# GET the dashboard page
 @app.route("/messages/", methods=["GET"])
 def messages_index():
     return render_template("messages/list.html", messages = Message.query.all())
@@ -27,6 +27,7 @@ def messages_set_read(message_id):
     m = Message.query.get(message_id)
     u = current_user
     
+    # Check if user has already marked the thread as 'read'
     if ReadMessage.hasUserReadMessage(u.id, m.id) == False:
         rm = ReadMessage(u.id, m.id)
 
@@ -60,7 +61,7 @@ def message_view(message_id):
     m = Message.query.get(message_id)
     u = User.query.get(m.account_id)
 
-    # List of the users who have read this message
+    # Get a list of the users who have read this message
     readers = ReadMessage.findAllUsersWhoRead(m.id)
 
     return render_template("messages/message.html", message = m, user = u, readers = readers, replies = m.findAllReplies(m.id))
@@ -123,7 +124,10 @@ def message_edit(message_id):
 @login_required
 def message_new_reply(message_id):
     m = Message.query.get(message_id)
+
+    # Get the original poster of the message
     op = User.query.get(m.account_id)  
+
     return render_template("reply/new.html", message = m, user = op, form = ReplyForm())
 
 # POST new reply
@@ -147,7 +151,7 @@ def message_post_reply(message_id):
 
     return redirect(url_for("message_view", message_id = m.id))
 
-# DELETE a reply
+# POST delete a reply
 @app.route("/messages/<message_id>/replies/<reply_id>/delete", methods = ["POST"])
 @login_required
 def reply_delete(message_id, reply_id):

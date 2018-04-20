@@ -6,8 +6,6 @@ from application.auth.models import User
 from application.auth.forms import LoginForm, RegisterForm
 
 # Handle the login page
-
-
 @app.route("/auth/login", methods=["GET", "POST"])
 def auth_login():
     if request.method == "GET":
@@ -15,19 +13,19 @@ def auth_login():
 
     form = LoginForm(request.form)
 
+    # Attempt to find an user with the login information
     user = User.query.filter_by(
         username=form.username.data, password=form.password.data).first()
+
     if not user:
         return render_template("auth/loginform.html", form=form, error="Incorrect username or password")
 
-    # Return to the dashboard
+    # Show the dashboard
     login_user(user)
     print("User " + user.username + " authenticated")
     return redirect(url_for("messages_index"))
 
 # Handle the register page
-
-
 @app.route("/auth/register", methods=["GET", "POST"])
 def auth_register():
     if request.method == "GET":
@@ -49,28 +47,22 @@ def auth_register():
     db.session().add(a)
     db.session().commit()
 
-    # Return the login page
+    # Show the login page
     return redirect(url_for("auth_login"))
 
 # Handle logging out
-
-
 @app.route("/auth/logout")
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))
 
-# GET User page
-
-
+# GET User profile page
 @app.route("/users/<user_id>", methods=["GET"])
 def view_user(user_id):
     u = User.query.get(user_id)
     return render_template("auth/user.html", user=u)
 
 # POST Promote user to admin
-
-
 @app.route("/users/<user_id>/promote", methods=["POST"])
 @login_required
 def promote_user(user_id):
@@ -98,7 +90,6 @@ def demote_user(user_id):
     db.session().commit()
 
     # Make sure that the current user is allowed to do this
-
     if not current_user.isSuper:
         return redirect(url_for("view_user", user_id=u.id))
 

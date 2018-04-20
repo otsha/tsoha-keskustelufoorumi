@@ -18,6 +18,7 @@ class Message(Base):
         self.content = ""
         self.read = False
 
+    # Find all replies to a message
     @staticmethod
     def findAllReplies(message_id):
         stmt = text("SELECT Reply.id, Reply.account_id from Reply"
@@ -33,6 +34,7 @@ class Message(Base):
 
         return response
 
+    # Delete all replies to a message (this is executed when a thread is deleted)
     @staticmethod
     def deleteAllReplies(message_id):
         stmt = text("DELETE FROM Reply"

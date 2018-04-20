@@ -14,6 +14,7 @@ class ReadMessage(Base):
         self.account_id = account_id
         self.message_id = message_id
 
+    # Find all the users who read the specified message
     @staticmethod
     def findAllUsersWhoRead(message_id):
         stmt = text("SELECT account_id FROM read_message"
@@ -27,6 +28,7 @@ class ReadMessage(Base):
 
         return response
 
+    # Check if the specified user has read the specified message
     @staticmethod
     def hasUserReadMessage(user_id, message_id):
         stmt = text("SELECT DISTINCT account_id FROM read_message"

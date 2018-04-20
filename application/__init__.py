@@ -16,7 +16,7 @@ else:
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Create db
+# Create the database
 db = SQLAlchemy(app)
 
 # Import content viewed to user
