@@ -40,3 +40,18 @@ class Message(Base):
         stmt = text("DELETE FROM Reply"
                         " WHERE Reply.message_id = :message_id").params(message_id = message_id)
         db.engine.execute(stmt)
+
+    # Find all messages (threads) posted by an user
+    @staticmethod
+    def findAllThreadsPostedBy(user_id):
+        stmt = text("SELECT Message.id from Message"
+                        " WHERE Message.account_id = :user_id"
+                        " ORDER BY Message.date_created").params(user_id = user_id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            m = Message.query.get(row[0])
+            response.append(m)
+        
+        return response

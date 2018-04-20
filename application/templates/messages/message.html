@@ -25,12 +25,12 @@
 <table>
     <tr>
         <td>
-            <p style="font-style:italic">Reply #{{ reply.reply.id }} || On: {{ reply.reply.date_created }}</p>
+            <span style="font-style:italic">Reply #{{ reply.reply.id }} | On: {{ reply.reply.date_created }}</span>
         </td>
     </tr>
     <tr>
         <td>
-            By: {{ reply.user.username }}
+            By: <a href="{{ url_for('view_user', user_id=user.id) }}">{{ reply.user.username }}</a>
         </td>
     </tr>
     <tr>
@@ -43,6 +43,8 @@
         <td>
             [<a href="{{ url_for('reply_edit', message_id=message.id, reply_id=reply.reply.id) }}">Edit</a>]
         </td>
+    </tr>
+    <tr>
         <td>
             <form method="POST" action="{{ url_for('reply_delete', message_id=message.id, reply_id=reply.reply.id) }}">
                 <input type="submit" value="Delete"/>

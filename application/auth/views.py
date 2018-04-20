@@ -4,6 +4,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm, RegisterForm
+from application.message.models import Message
 
 # Handle the login page
 @app.route("/auth/login", methods=["GET", "POST"])
@@ -60,7 +61,8 @@ def auth_logout():
 @app.route("/users/<user_id>", methods=["GET"])
 def view_user(user_id):
     u = User.query.get(user_id)
-    return render_template("auth/user.html", user=u)
+    messages = Message.findAllThreadsPostedBy(u.id)
+    return render_template("auth/user.html", user=u, messages=messages)
 
 # POST Promote user to admin
 @app.route("/users/<user_id>/promote", methods=["POST"])

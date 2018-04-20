@@ -5,8 +5,8 @@
 <p style="font-weight:bold">ADMIN</p>
 {% endif %}
 <p style="font-style:italic">Joined on: {{ user.date_created }}</p>
-<hr>
 {% if current_user.isSuper %}
+<hr>
     {% if not user.isSuper %}
         <form method="POST" action="{{ url_for('promote_user', user_id=user.id) }}">
             <input type="submit" value="Promote to ADMIN"/>
@@ -17,4 +17,18 @@
         </form>
         {% endif %}
 {% endif %}
+<hr>
+<h2>Threads posted by this user:</h2>
+<table style="width:100%">
+    <tr>
+        <th>Message</th>
+        <th>Date</th>
+    </tr>
+    {% for message in messages %}
+    <tr>
+        <td><a href="{{ url_for('message_view', message_id=message.id) }}">{{ message.name }}</a></td>
+        <td>{{ message.date_created }}</td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}
