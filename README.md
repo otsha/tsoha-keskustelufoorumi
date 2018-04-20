@@ -4,6 +4,8 @@
 
 * [Projektin määrittelydokumentti](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/description.md)
 
+* [Sivuston käyttöohje](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/usermanual.md)
+
 * [Projektin alustava tietokantakaavio](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/databasediagram.png)
 
 * Sovellus on livenä osoitteessa: (https://keskustelufoorumi-tsoha.herokuapp.com/)
