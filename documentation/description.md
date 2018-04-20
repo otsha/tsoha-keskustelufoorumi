@@ -12,12 +12,16 @@ Kerrataan aluksi vielä projektin kuvaus.
 
 - [x] Kirjautuminen
 - [x] Kirjoituksen lisääminen
+- [x] Kirjoitusten poistaminen
 - [ ] Kirjoitusten näyttäminen eri kriteerein
 - [ ] Ryhmän jäsenen lisääminen, muokkaaminen ja poistaminen
 - [x] Vastineen laatiminen ja muokkaus
   - [x] Laatiminen ja poisto
   - [x] Muokkaus
-- [x] Kirjoitusten poistaminen
+- [x] Langan lukeneiden käyttääjien listaaminen
+- [x] Käyttäjän profiilin tarkastelu
+  - [x] Käyttäjän aloittamien lankojen listaaminen
+  - [x] Käyttäjän admin-statuksen muuttaminen
 - [ ] Aiheiden määrittely, muokkaus ja poisto
 
 ## Alustava tietokantakaavio
