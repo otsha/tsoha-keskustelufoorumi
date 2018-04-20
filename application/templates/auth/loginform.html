@@ -1,4 +1,7 @@
-{% extends "layout.html" %} {% block body %} {{ error }}
+{% extends "layout.html" %}
+{% block body %}
+{{ error }}
+
 <h1>Log in</h1>
 <form method="POST" action="{{ url_for('auth_login') }}">
     <table>
@@ -25,9 +28,10 @@
         </tr>
         <tr>
             <td>
-                Not a user? [<a href="{{ url_for('auth_register') }}">Register</a>]
+                Not registered? [<a href="{{ url_for('auth_register') }}">Register</a>]
             </td>
         </tr>
     </table>
 </form>
+
 {% endblock %}

@@ -1,4 +1,7 @@
-{% extends "layout.html" %} {% block body %} {{ error }}
+{% extends "layout.html" %}
+{% block body %}
+{{ error }}
+
 <h1>Register</h1>
 <form method="POST" action="{{ url_for('auth_register') }}">
     <table>
@@ -30,4 +33,5 @@
         </tr>
     </table>
 </form>
+
 {% endblock %}

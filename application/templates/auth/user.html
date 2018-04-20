@@ -1,23 +1,26 @@
 {% extends 'layout.html' %}
 {% block body %}
+
 <h1>{{ user.username }}</h1>
 {% if user.isSuper == True %}
-<p style="font-weight:bold">ADMIN</p>
+    <p style="font-weight:bold">ADMIN</p>
 {% endif %}
 <p style="font-style:italic">Joined on: {{ user.date_created }}</p>
+
 {% if current_user.isSuper %}
-<hr>
-    {% if not user.isSuper %}
-        <form method="POST" action="{{ url_for('promote_user', user_id=user.id) }}">
-            <input type="submit" value="Promote to ADMIN"/>
-        </form>
-        {% else %}
-        <form method="POST" action="{{ url_for('demote_user', user_id=user.id) }}">
-            <input type="submit" value="Demote from ADMIN"/>
-        </form>
+    <hr>
+        {% if not user.isSuper %}
+            <form method="POST" action="{{ url_for('promote_user', user_id=user.id) }}">
+                <input type="submit" value="Promote to ADMIN"/>
+            </form>
+            {% else %}
+            <form method="POST" action="{{ url_for('demote_user', user_id=user.id) }}">
+                <input type="submit" value="Demote from ADMIN"/>
+            </form>
         {% endif %}
 {% endif %}
 <hr>
+
 <h2>Threads posted by this user:</h2>
 <table style="width:100%">
     <tr>
@@ -25,10 +28,11 @@
         <th>Date</th>
     </tr>
     {% for message in messages %}
-    <tr>
-        <td><a href="{{ url_for('message_view', message_id=message.id) }}">{{ message.name }}</a></td>
-        <td>{{ message.date_created }}</td>
-    </tr>
+        <tr>
+            <td><a href="{{ url_for('message_view', message_id=message.id) }}">{{ message.name }}</a></td>
+            <td>{{ message.date_created }}</td>
+        </tr>
     {% endfor %}
 </table>
+
 {% endblock %}
