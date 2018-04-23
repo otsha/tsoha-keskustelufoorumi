@@ -81,6 +81,7 @@ def message_delete(message_id):
     
     # Delete all the replies to this post
     m.deleteAllReplies(m.id)
+    m.deleteReadMessage(m.id)
 
     # Delete the message from the database
     db.session().delete(m)

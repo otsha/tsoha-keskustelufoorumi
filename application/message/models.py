@@ -41,6 +41,14 @@ class Message(Base):
                         " WHERE Reply.message_id = :message_id").params(message_id = message_id)
         db.engine.execute(stmt)
 
+    # Delete all ReadMessage data for the specified message (this is executed when a thread is deleted)
+    @staticmethod
+    def deleteReadMessage(message_id):
+        stmt = text("DELETE FROM read_message"
+                        " WHERE read_message.message_id = :message_id").params(message_id = message_id)
+        
+        db.engine.execute(stmt)
+
     # Find all messages (threads) posted by an user
     @staticmethod
     def findAllThreadsPostedBy(user_id):
