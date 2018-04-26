@@ -4,40 +4,43 @@
 
 <p style="font-style:italic; font-size: 80%">In: <a href="{{ url_for('view_category', category_id=category.id) }}">{{ category.name }}</a></p>
 <h1> {{ message.name }} </h1>
-<p style="font-style:italic; font-weight: bold; font-size: 90%">Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }} | By: <a href="{{ url_for('view_user', user_id=user.id) }}">{{ user.username }}</a> </p>
+<p style="font-style:italic; font-weight: bold; font-size: 90%">Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }} | By: <a href="{{ url_for('view_user', user_id=user.id) }}">{{ user.username }}</a> <span class="badge badge-danger">Admin</span></p>
 <hr>
 <p>
     {{ message.content }}
 </p>
 <hr>
-<span>Users who have marked this message as read: </span><br/>
+
+<p style="font-size: 80%">Users who have marked this message as read: <br/>
 {% for reader in readers %}
     <span><a href="{{ url_for('view_user', user_id=reader.user.id) }}">{{ reader.user.username }}</a>, </span>
 {% endfor %}
+</p>
 <hr>
+
 <table>
         <tr>
             {% if current_user.is_authenticated %}
-            <td>
+            <td width="100%">
                 <form method="GET" action="{{ url_for('message_new_reply', message_id=message.id) }}">
-                    <input type="submit" value="Reply"/>
+                    <button class="btn btn-primary" type="submit">Reply</button>
                 </form>
             </td>
+                {% if current_user.id == user.id or current_user.isSuper == True %}
+                <td>
+                    <form method="GET" action="{{ url_for('message_edit', message_id=message.id) }}">
+                        <button class="btn btn-warning" type="submit">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{{ url_for('message_delete', message_id=message.id) }}">
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+                {% endif %}
             {% else %}
             <td>
                 🔒 <span style="font-style: italic">Please <a href="{{ url_for('auth_login') }}">log in</a> to reply.</span>
-            </td>
-            {% endif %}
-            {% if current_user.id == user.id or current_user.isSuper == True %}
-            <td>
-                <form method="GET" action="{{ url_for('message_edit', message_id=message.id) }}">
-                        <input type="submit" value="Edit"/>
-                </form>
-            </td>
-            <td>
-                <form method="POST" action="{{ url_for('message_delete', message_id=message.id) }}">
-                    <input type="submit" value="Delete" />
-                </form>
             </td>
             {% endif %}
         </tr>
@@ -45,25 +48,28 @@
     <hr>
     
 {% for reply in replies %}
-<span style="font-style:italic; font-weight:bold"><a href="{{ url_for('view_user', user_id=user.id) }}">{{ reply.user.username }}</a> replied | On: {{ reply.reply.date_created }}</span>
-<p>{{ reply.reply.content }}</p>
-{% if current_user.id == reply.user.id or current_user.isSuper == True %}
-<table>
-    <tr>
-        <td>
-            <form method="GET" action="{{ url_for('reply_edit', message_id=message.id, reply_id=reply.reply.id) }}">
-                    <input type="submit" value="Edit"/>
-            </form>
-        </td>
-        <td>
-            <form method="POST" action="{{ url_for('reply_delete', message_id=message.id, reply_id=reply.reply.id) }}">
-                    <input type="submit" value="Delete"/>
-            </form>
-        </td>
-    </tr>
-</table>
-{% endif %}
-<hr>
+    <span style="font-style:italic; font-weight:bold"><a href="{{ url_for('view_user', user_id=reply.user.id) }}">{{ reply.user.username }}</a> <span class="badge badge-danger">Admin</span> replied | On: {{ reply.reply.date_created }}</span>
+    <p>{{ reply.reply.content }}</p>
+    {% if current_user.id == reply.user.id or current_user.isSuper == True %}
+        <table>
+            <tr>
+                <td width="100%">
+
+                </td>
+                <td>
+                    <form method="GET" action="{{ url_for('reply_edit', message_id=message.id, reply_id=reply.reply.id) }}">
+                        <button class="btn btn-warning" type="submit">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{{ url_for('reply_delete', message_id=message.id, reply_id=reply.reply.id) }}">
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    {% endif %}
+    <hr>
 {% endfor %}
 
 {% endblock %}

@@ -3,33 +3,47 @@
 {{ error }}
 
 <h1>Editing: {{ message.name }} </h1>
-<p>Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }}</p>
-<p>
-    {{ message.content }}
-</p>
+<p style="font-style:italic; font-weight: bold; font-size: 90%">Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }}</p>
 <hr>
 
 <form method="POST" action="{{ url_for('message_edit', message_id=message.id) }}">
     <table>
         <tr>
-            <td>
-                {{ form.name.label }}
+            <td width="25%">{{ form.name.label }}</td>
+            <td width="100%">
+                <input type="text" class="form-control" name="name" value="{{ message.name }}"/>
             </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
             <td>
-                {{ form.name }}
+                {% for error in form.name.errors %}
+                    <div class="alert alert-warning" role="alert">
+                        {{ error }}
+                    </div>
+                {% endfor %}            
+            </td>
+        </tr>
+        <tr>
+            <td>{{ form.content.label }}</td>
+            <td>
+                <textarea class="form-control" name="content">{{ message.content }}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                {% for error in form.content.errors %}
+                    <div class="alert alert-warning" role="alert">
+                        {{ error }}
+                    </div>
+                {% endfor %}            
             </td>
         </tr>
         <tr>
             <td>
-                {{ form.content.label }}
-            </td>
-            <td>
-                {{ form.content(rows='10',cols='100') }}
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="submit" value="Confirm" />
+                <button class="btn btn-primary" type="submit">Confirm</button>
             </td>
         </tr>
     </table>

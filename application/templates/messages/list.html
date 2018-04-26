@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Dashboard</h1>
     <p style="font-style:italic">Here you can view all the messages posted onto this board regardless of category.</p>
-    <hr>
+    <hr>    
     <table style="width:100%">
         <tr>
             <th>Message</th>
@@ -11,14 +11,14 @@
         </tr>
         {% for message in messages %}
             <tr>
-                <td>
+                <td width="50%">
                     <a href="{{ url_for('message_view', message_id=message.id) }}">{{ message.name }}</a>
                 </td>
-                <td>{{ message.date_created }}</td>
+                <td width="50%">{{ message.date_created }}</td>
                 {% if current_user.is_authenticated %}
                     <td>
                         <form method="POST" action="{{ url_for('messages_set_read', message_id=message.id) }}">
-                            <input type="submit" value="Mark as read"/>
+                            <button class="btn btn-secondary" type="submit">Mark as read</button>
                         </form>
                     </td>
                 {% endif %}

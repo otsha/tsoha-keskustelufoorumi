@@ -1,19 +1,38 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <h1>Categories</h1>
+
+    <table>
+        <tr>
+            <td width="100%">
+                <h1>Categories</h1>
+            </td>
+            {% if current_user.isSuper %}
+            <td>
+                <form method="GET" action="{{ url_for('new_category') }}">
+                    <button class="btn btn-primary" type="submit">Create new</button>
+                </form>
+            </td>
+            {% endif %}
+        </tr>    
+    </table>
     <hr>
-    {% if current_user.isSuper %}
-        [<a href="{{ url_for('new_category') }}">Create new...</a>]
-        <hr>
-    {% endif %}
+    
     {% for category in categories %}
-        <span style="font-size: 110%; font-weight: 500"><a href="{{ url_for('view_category', category_id = category.id) }}">{{ category.name }}</a></span>
-        {% if current_user.isSuper %}
-            <form method="POST" action="{{ url_for('delete_category', category_id = category.id) }}">
-                <input type="submit" value="Delete"/>
-            </form>
-        {% endif %}
+    <table>
+        <tr>
+            <td width="100%">
+                <span style="font-size: 110%; font-weight: 500"><a href="{{ url_for('view_category', category_id = category.id) }}">{{ category.name }}</a></span>
+            </td>
+            {% if current_user.isSuper %}
+            <td>
+                <form method="POST" action="{{ url_for('delete_category', category_id = category.id) }}">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            </td>
+            {% endif %}
+        </tr>
+    </table>
         <hr>
     {% endfor %}
 {% endblock %}

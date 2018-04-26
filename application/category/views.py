@@ -5,13 +5,14 @@ from application import app, db
 from application.category.models import Category
 from application.category.forms import CategoryForm
 from application.message.models import Message
+from application.readmessage.models import ReadMessage
 
 from sqlalchemy import desc
 
-# GET the dashboard page
+# GET the category listing page
 @app.route("/categories/", methods=["GET"])
 def categories_index():
-    return render_template("categories/list.html", categories = Category.query.all())
+    return render_template("categories/list.html", categories = Category.query.order_by('name').all())
 
 # GET new category page
 @app.route("/categories/new", methods=["GET", "POST"])

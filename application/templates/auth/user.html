@@ -3,7 +3,7 @@
 
 <h1>{{ user.username }}</h1>
 {% if user.isSuper == True %}
-    <p style="font-weight:bold">ADMIN</p>
+    <span class="badge badge-danger">ADMIN</span>
 {% endif %}
 <p style="font-style:italic">Joined on: {{ user.date_created }}</p>
 
@@ -11,17 +11,18 @@
     <hr>
         {% if not user.isSuper %}
             <form method="POST" action="{{ url_for('promote_user', user_id=user.id) }}">
-                <input type="submit" value="Promote to ADMIN"/>
+                <button class="btn btn-warning" type="submit">Promote to ADMIN</button>
             </form>
             {% else %}
             <form method="POST" action="{{ url_for('demote_user', user_id=user.id) }}">
-                <input type="submit" value="Demote from ADMIN"/>
+                <button class="btn btn-danger" type="submit">Demote from ADMIN</button>
             </form>
         {% endif %}
 {% endif %}
 <hr>
 
-<h2>Threads posted by this user:</h2>
+<h2>Threads posted by this user</h2>
+<hr>
 <table style="width:100%">
     <tr>
         <th>Message</th>
