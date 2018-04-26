@@ -23,12 +23,14 @@ db = SQLAlchemy(app)
 from application import views
 from application.message import views
 from application.auth import views
+from application.category import views
 
 # Import database data models
 from application.message import models
 from application.auth import models
 from application.reply import models
 from application.readmessage import models
+from application.category import models
 
 # Logging in
 from application.auth.models import User

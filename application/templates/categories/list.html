@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>Categories</h1>
+    <hr>
+    {% if current_user.isSuper %}
+        [<a href="{{ url_for('new_category') }}">Create new...</a>]
+        <hr>
+    {% endif %}
+    <table style="width:100%">
+        <tr>
+            <th>Category</th>
+        </tr>
+        {% for category in categories %}
+            <tr>
+                <td>
+                    {{ category.name }}
+                </td>
+                {% if current_user.isSuper %}
+                <td colspan="10">
+                    <form method="POST" action="{{ url_for('delete_category', category_id = category.id) }}">
+                        <input type="submit" value="Delete"/>
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

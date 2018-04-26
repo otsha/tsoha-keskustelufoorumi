@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1>Create a new category</h1>
+<hr>
+<form method="POST" action="{{ url_for('new_category') }}">
+    <table>
+        <tr>
+            <td>
+                {{ form.name.label }}:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form.name }}
+            </td>
+            <td>
+                <ul>
+                    {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Create"/>
+            </td>
+        </tr>
+    </table>
+</form>
+{% endblock %}
