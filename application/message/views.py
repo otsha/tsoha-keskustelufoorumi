@@ -9,10 +9,12 @@ from application.reply.models import Reply
 from application.reply.forms import ReplyForm, ReplyEditForm
 from application.readmessage.models import ReadMessage
 
+from sqlalchemy import desc
+
 # GET the dashboard page
 @app.route("/messages/", methods=["GET"])
 def messages_index():
-    return render_template("messages/list.html", messages = Message.query.all())
+    return render_template("messages/list.html", messages = Message.query.order_by(desc(Message.date_created)).all())
 
 # GET new message page
 @app.route("/messages/new/", methods=["GET"])
