@@ -2,17 +2,25 @@
 
 {% block body %}
 <form method="POST" action="{{ url_for('messages_form') }}">
+    <h1>Post a new message</h1>
+    <hr>
+
     <table>
         <tr>
-        <select name="category_select">
-            <option value="default">no category</option>
-            {% for category in categories %}
-            <option value="{{ category.id }}">{{ category.name }}</option>
-            {% endfor %}
-        </select>
+            <td>
+                Category
+            </td>
+            <td>
+                <select name="category_select">
+                    <option value="default">no category</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </td>
         </tr>
         <tr>
-            <td>
+            <td width="25%">
                 {{ form.name.label }}
             </td>
             <td>

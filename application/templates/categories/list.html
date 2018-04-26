@@ -7,23 +7,13 @@
         [<a href="{{ url_for('new_category') }}">Create new...</a>]
         <hr>
     {% endif %}
-    <table style="width:100%">
-        <tr>
-            <th>Category</th>
-        </tr>
-        {% for category in categories %}
-            <tr>
-                <td>
-                    <a href="{{ url_for('view_category', category_id = category.id) }}">{{ category.name }}</a>
-                </td>
-                {% if current_user.isSuper %}
-                <td colspan="10">
-                    <form method="POST" action="{{ url_for('delete_category', category_id = category.id) }}">
-                        <input type="submit" value="Delete"/>
-                    </form>
-                </td>
-                {% endif %}
-            </tr>
-        {% endfor %}
-    </table>
+    {% for category in categories %}
+        <span style="font-size: 110%; font-weight: 500"><a href="{{ url_for('view_category', category_id = category.id) }}">{{ category.name }}</a></span>
+        {% if current_user.isSuper %}
+            <form method="POST" action="{{ url_for('delete_category', category_id = category.id) }}">
+                <input type="submit" value="Delete"/>
+            </form>
+        {% endif %}
+        <hr>
+    {% endfor %}
 {% endblock %}

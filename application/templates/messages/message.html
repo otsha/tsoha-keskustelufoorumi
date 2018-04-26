@@ -25,7 +25,7 @@
             </td>
             {% else %}
             <td>
-                <span style="font-style: italic">Please <a href="{{ url_for('auth_login') }}">log in</a> to reply.</span>
+                🔒 <span style="font-style: italic">Please <a href="{{ url_for('auth_login') }}">log in</a> to reply.</span>
             </td>
             {% endif %}
             {% if current_user.id == user.id or current_user.isSuper == True %}
