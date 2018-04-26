@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
+{{ error }}
 <form method="POST" action="{{ url_for('messages_form') }}">
     <h1>Post a new message</h1>
     <hr>
@@ -12,7 +13,7 @@
             </td>
             <td>
                 <select name="category_select">
-                    <option value="default">no category</option>
+                    <option value="null">...</option>
                     {% for category in categories %}
                         <option value="{{ category.id }}">{{ category.name }}</option>
                     {% endfor %}

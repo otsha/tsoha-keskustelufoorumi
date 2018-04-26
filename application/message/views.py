@@ -26,8 +26,13 @@ def messages_form():
     
     form = MessageForm(request.form)
 
+    # Validate the form
     if not form.validate():
         return render_template("messages/new.html", form = form, categories = Category.query.all())
+
+    # Check if the dropdown menu selection is valid
+    if request.form.get('category_select') == 'null':
+        return render_template("messages/new.html", form = form, categories = Category.query.all(), error = "Please select a category")
 
     # Create a message object and add it to the database
     m = Message(form.name.data)
