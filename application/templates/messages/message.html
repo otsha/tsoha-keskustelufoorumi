@@ -4,7 +4,9 @@
 
 <p style="font-style:italic; font-size: 80%">In: <a href="{{ url_for('view_category', category_id=category.id) }}">{{ category.name }}</a></p>
 <h1> {{ message.name }} </h1>
-<p style="font-style:italic; font-weight: bold; font-size: 90%">Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }} | By: <a href="{{ url_for('view_user', user_id=user.id) }}">{{ user.username }}</a> <span class="badge badge-danger">Admin</span></p>
+<p style="font-style:italic; font-weight: bold; font-size: 90%">Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }} | By: <a href="{{ url_for('view_user', user_id=user.id) }}">{{ user.username }}</a>
+    {% if user.isSuper %}<span class="badge badge-danger">Admin</span>{% endif %}
+</p>
 <hr>
 <p>
     {{ message.content }}
@@ -48,7 +50,10 @@
     <hr>
     
 {% for reply in replies %}
-    <span style="font-style:italic; font-weight:bold"><a href="{{ url_for('view_user', user_id=reply.user.id) }}">{{ reply.user.username }}</a> <span class="badge badge-danger">Admin</span> replied | On: {{ reply.reply.date_created }}</span>
+    <span style="font-style:italic; font-weight:bold">
+        <a href="{{ url_for('view_user', user_id=reply.user.id) }}">{{ reply.user.username }}</a>
+        {% if reply.user.isSuper %} <span class="badge badge-danger">Admin</span>{% endif %} replied | On: {{ reply.reply.date_created }}
+    </span>
     <p>{{ reply.reply.content }}</p>
     {% if current_user.id == reply.user.id or current_user.isSuper == True %}
         <table>

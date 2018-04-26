@@ -3,7 +3,7 @@
 
 <form method="POST" action="{{ url_for('message_new_reply', message_id=message.id) }}">
     <h1>Replying to: {{ message.name }} </h1>
-    <p style="font-style:italic; font-weight: bold; font-size: 90%">Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }} | By: <a href="{{ url_for('view_user', user_id=user.id) }}">{{ user.username }}</a> <span class="badge badge-danger">Admin</span></p>
+    <p style="font-style:italic; font-weight: bold; font-size: 90%">Posted: {{ message.date_created }} | Last edit: {{ message.date_modified }} | By: <a href="{{ url_for('view_user', user_id=user.id) }}">{{ user.username }}</a>{% if user.isSuper %} <span class="badge badge-danger">Admin</span>{% endif %}</p>
     <p>
         {{ message.content }}
     </p>
