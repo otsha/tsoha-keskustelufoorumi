@@ -12,6 +12,7 @@ class Message(Base):
     read = db.Column(db.Boolean, nullable = False)
 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable = False)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable = False)
 
     def __init__(self, name):
         self.name = name

@@ -1,8 +1,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('messages_create') }}">
+<form method="POST" action="{{ url_for('messages_form') }}">
     <table>
+        <tr>
+        <select name="category_select">
+            <option value="default">no category</option>
+            {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        </tr>
         <tr>
             <td>
                 {{ form.name.label }}

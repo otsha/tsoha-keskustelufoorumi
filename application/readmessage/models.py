@@ -4,7 +4,7 @@ from application.auth.models import User
 from application.message.models import Message
 from sqlalchemy.sql import text
 
-# Define the database model for a message
+# Define a JOINT TABLE that keeps track of users marking threads as 'read'
 class ReadMessage(Base):
 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable = False)

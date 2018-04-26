@@ -8,6 +8,7 @@ from application.auth.models import User
 from application.reply.models import Reply
 from application.reply.forms import ReplyForm, ReplyEditForm
 from application.readmessage.models import ReadMessage
+from application.category.models import Category
 
 from sqlalchemy import desc
 
@@ -16,11 +17,28 @@ from sqlalchemy import desc
 def messages_index():
     return render_template("messages/list.html", messages = Message.query.order_by(desc(Message.date_created)).all())
 
-# GET new message page
-@app.route("/messages/new/", methods=["GET"])
+# HANDLE creating new messages
+@app.route("/messages/new/", methods=["GET", "POST"])
 @login_required
 def messages_form():
-    return render_template("messages/new.html", form = MessageForm())
+    if request.method == "GET":
+        return render_template("messages/new.html", form = MessageForm(), categories = Category.query.all())
+    
+    form = MessageForm(request.form)
+
+    if not form.validate():
+        return render_template("messages/new.html", form = form, categories = Category.query.all())
+
+    # Create a message object and add it to the database
+    m = Message(form.name.data)
+    m.content = form.content.data
+    m.account_id = current_user.id
+    m.category_id = request.form.get('category_select')
+
+    db.session().add(m)
+    db.session().commit()
+
+    return redirect(url_for("messages_index"))
 
 # POST set message to read
 @app.route("/messages/<message_id>/read/", methods = ["POST"])
@@ -38,35 +56,17 @@ def messages_set_read(message_id):
 
     return redirect(url_for("message_view", message_id = m.id))
 
-# POST create new message
-@app.route("/messages/", methods = ["POST"])
-@login_required
-def messages_create():
-    form = MessageForm(request.form)
-
-    if not form.validate():
-        return render_template("messages/new.html", form = form)
-
-    # Create a message object and add it to the database
-    m = Message(form.name.data)
-    m.content = form.content.data
-    m.account_id = current_user.id
-
-    db.session().add(m)
-    db.session().commit()
-
-    return redirect(url_for("messages_index"))
-
 # GET message page (a specific post)
 @app.route("/messages/<message_id>/")
 def message_view(message_id):
     m = Message.query.get(message_id)
     u = User.query.get(m.account_id)
+    c = Category.query.get(m.category_id)
 
     # Get a list of the users who have read this message
     readers = ReadMessage.findAllUsersWhoRead(m.id)
 
-    return render_template("messages/message.html", message = m, user = u, readers = readers, replies = m.findAllReplies(m.id))
+    return render_template("messages/message.html", message = m, user = u, category = c, readers = readers, replies = m.findAllReplies(m.id))
 
 # POST delete message
 @app.route("/messages/<message_id>/delete/", methods = ["POST"])

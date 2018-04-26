@@ -4,6 +4,9 @@ from flask_login import login_required, current_user
 from application import app, db
 from application.category.models import Category
 from application.category.forms import CategoryForm
+from application.message.models import Message
+
+from sqlalchemy import desc
 
 # GET the dashboard page
 @app.route("/categories/", methods=["GET"])
@@ -52,3 +55,9 @@ def delete_category(category_id):
     db.session().commit()
 
     return redirect(url_for("categories_index"))
+
+# GET the page for a specific categpry
+@app.route("/categories/<category_id>", methods=["GET"])
+def view_category(category_id):
+    c = Category.query.get(category_id)
+    return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(desc(Message.date_created)).all())
