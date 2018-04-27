@@ -127,6 +127,21 @@ def message_edit(message_id):
 
     return redirect(url_for("message_view", message_id=m.id))
 
+# POST Search from messages
+@app.route("/search", methods = ["POST"])
+def messages_search():
+    term = request.form.get("search")
+
+    if term == "":
+        return redirect(url_for("messages_index"))
+
+    return redirect(url_for("messages_search_results", search_term = term))
+
+@app.route("/search/results/<search_term>", methods = ["GET"])
+def messages_search_results(search_term):
+    messages = Message.query.filter(Message.name.like('%'+search_term+'%')).order_by(desc(Message.date_created)).all()
+    return render_template("messages/search.html", messages = messages)
+
 # GET new reply page
 @app.route("/messages/<message_id>/reply", methods = ["GET"])
 @login_required

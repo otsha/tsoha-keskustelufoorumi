@@ -29,25 +29,31 @@
           </li>
         </ul>
 
+        <form method="POST" class="form-inline" action="{{ url_for('messages_search') }}">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search"/>
+          <button class="btn btn-info mr-sm-2" type="submit">Search</button>
+        </form>
+
         <div class="form-inline mt-2 mt-md-0">
           <ul class="navbar-nav">
             {% if current_user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('view_user', user_id = current_user.id) }}">Logged in as {{ current_user.username }}</a>
+              <a class="nav-link mr-sm-2" href="{{ url_for('view_user', user_id = current_user.id) }}">Logged in as {{ current_user.username }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('auth_logout') }}">Log out</a>
+              <a class="btn btn-danger mr-sm-2" role="button" href="{{ url_for('auth_logout') }}">Log out</a>
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('auth_login') }}">Login</a>
+              <a class="btn btn-primary mr-sm-2" role="button" href="{{ url_for('auth_login') }}">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('auth_register') }}">Register</a>
+              <a class="btn btn-secondary mr-sm-2" role="button" href="{{ url_for('auth_register') }}">Register</a>
             </li>
             {% endif %}
           </ul>
         </div>
+
       </div>
     </nav>
   
