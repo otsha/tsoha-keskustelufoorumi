@@ -3,18 +3,25 @@
 {% block body %}
     <h1>{{ category.name }}</h1>
     <hr>
-
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" name="sorting_method" data-toggle="dropdown" aria-hashpopup="true" aria-expanded="false">
-            Sort...
-        </button>
-        <div class="dropdown-menu" aria-labelledby="sorting_method">
-            <a class="dropdown-item" href="{{ url_for('view_category', category_id = category.id, selected_sorting = 'default') }}">Age (Newest first)</a>
-            <a class="dropdown-item" href="{{ url_for('view_category', category_id = category.id, selected_sorting = 'age_asc') }}">Age (Oldest first)</a>
-            <a class="dropdown-item" href="{{ url_for('view_category', category_id = category.id, selected_sorting = 'title_asc') }}">Title (Ascending)</a>
-            <a class="dropdown-item" href="{{ url_for('view_category', category_id = category.id, selected_sorting = 'title_desc') }} ">Title (Descending)</a>
-        </div>
-    </div>
+    
+    <form method="POST" action="{{ url_for('view_category', category_id = category.id) }}">
+        <table>
+            <tr>
+                <td>
+                    <select class="form-control" name="selected_sorting">
+                        <option value="default">Age (Newest first)</option>
+                        <option value="age_asc">Age (Oldest first)</option>
+                        <option value="title_asc">Title (Ascending)</option>
+                        <option value="title_desc">Title (Descending)</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="btn btn-secondary" type="submit">Sort</button>
+                </td>
+            </tr>
+            
+        </table>
+    </form>
     <hr>
 
     <table style="width:100%">

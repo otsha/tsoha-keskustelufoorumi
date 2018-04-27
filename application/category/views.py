@@ -58,16 +58,19 @@ def delete_category(category_id):
     return redirect(url_for("categories_index"))
 
 # GET the message listing for a specific category
-@app.route("/categories/<category_id>?<selected_sorting>", methods=["GET"])
-def view_category(category_id, selected_sorting):
+@app.route("/categories/<category_id>/", methods=["GET", "POST"])
+def view_category(category_id):
     c = Category.query.get(category_id)
 
     # Which way are the messages sorted?
-    if selected_sorting == "age_asc":
-        return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(asc(Message.date_created)).all())
-    elif selected_sorting == "title_desc":
-        return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(desc(Message.name)).all())
-    elif selected_sorting == "title_asc":
-        return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(asc(Message.name)).all())
-    else:
-        return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(desc(Message.date_created)).all())
+    if request.method == "POST":
+        if request.form.get("selected_sorting") == "age_asc":
+            return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(asc(Message.date_created)).all())
+        elif request.form.get("selected_sorting") == "title_desc":
+            return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(desc(Message.name)).all())
+        elif request.form.get("selected_sorting") == "title_asc":
+            return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(asc(Message.name)).all())
+        else:
+            return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(desc(Message.date_created)).all())
+    
+    return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(desc(Message.date_created)).all())
