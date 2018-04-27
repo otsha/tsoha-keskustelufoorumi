@@ -14,6 +14,7 @@
   - [Kategoriat](#kategoriat)
     - [Dashboard](#dashboard)
   - [Hakeminen](#hakeminen)
+  - [Järjestäminen](#järjestäminen)
   
 ## Käyttäjät
 ### Rekisteröityminen ja kirjautuminen
@@ -76,11 +77,7 @@
 ### Kategoriat
 - Keskustelufoorumille uutta lankaa aloittaessa on sille valittava kategoria.
 - Kaikkia foorumin kategorioita on mahdollista tarkastella valitsemalla navigointipalkista "Categories".
-- Yksittäisen kategorian sisältämiä viestejä on mahdollista tarkastella eri järjestyksissä:
-  - "Age (Newest First)" on foorumin oletusjärjestys. Tällöin uusimmat viestit näytetään ylimpänä.
-  - "Age (Oldest First)" järjestää viestit vanhimmasta uusimpaan niiden luontipäiväyksen mukaan.
-  - "Title (Ascending)" järjestää viestit aakkosjärjestyksessä A:sta Ö:hön.
-  - "Title (Descending)" puolestaan järjestää viestit käänteiseen aakkosjärjestykseen.
+- Voit myös klikata haluamasi kategorian nimeä nähdäksesi kaikki kyseiseen kategoriaan aloitetut langat.
 
 #### Dashboard
 - Dashboard on sivu, jolla listataan kaikki foorumin langat tuoreusjärjestyksessä (uusimmasta vanhimpaan) riippumatta niiden kategoriasta.
@@ -90,3 +87,10 @@
 - Voit hakea viestejä niiden otsikon tai otsikon osan perusteella kirjoittamalla hakupalkkiin jotakin ja klikkaamalla "Search".
 - Haun tulokset listataan järjestyksessä uusimmasta vanhimpaan.
 - Jos jätät haun tyhjäksi, sinut ohjataan "Dashboard"-sivulle.
+
+### Järjestäminen
+- Keskustelupalstalle aloitettuja lankoja on mahdollista tarkastella erilaisissa järjestyksissä:
+  - "Age (Newest First)" on foorumin oletusjärjestys. Tällöin uusimmat viestit näytetään ylimpänä.
+  - "Age (Oldest First)" järjestää viestit vanhimmasta uusimpaan niiden luontipäiväyksen mukaan.
+  - "Title (Ascending)" järjestää viestit aakkosjärjestyksessä A:sta Ö:hön.
+  - "Title (Descending)" puolestaan järjestää viestit käänteiseen aakkosjärjestykseen.
