@@ -16,6 +16,7 @@ class Category(Base):
     def deleteAllMessages(category_id):
         messages = Message.query.filter_by(category_id=category_id).all()
         for message in messages:
+            Message.deleteReadMessage(message.id)
             Message.deleteAllReplies(message.id)
 
         stmt = text("DELETE FROM Message"
