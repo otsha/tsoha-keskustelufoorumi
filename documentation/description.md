@@ -12,26 +12,36 @@ Kerrataan aluksi vielä projektin kuvaus.
 
 - [x] Kirjautuminen
 - [x] Kirjoituksen lisääminen
+  - [x] Kirjoituksen kategorian määrittely
 - [x] Kirjoitusten poistaminen
-- [ ] Kirjoitusten näyttäminen eri kriteerein
-- [ ] Ryhmän jäsenen lisääminen, muokkaaminen ja poistaminen
+- [x] Kirjoitusten näyttäminen eri kriteerein
+  - [x] Kategorioittain
+  - [x] Järjestäminen päiväyksen tai otsikon mukaan (toistaiseksi vain kategorioissa)
+  - [x] Hakutoiminnallisuus (viestien otsikoista)
 - [x] Vastineen laatiminen ja muokkaus
   - [x] Laatiminen ja poisto
   - [x] Muokkaus
+- [x] Langan luetuksi merkkaaminen
 - [x] Langan lukeneiden käyttääjien listaaminen
 - [x] Käyttäjän profiilin tarkastelu
   - [x] Käyttäjän aloittamien lankojen listaaminen
   - [x] Käyttäjän admin-statuksen muuttaminen
-- [ ] Aiheiden määrittely, muokkaus ja poisto
+- [x] Kategorioiden määrittely ja poisto
+- [ ] Ryhmän jäsenen lisääminen, muokkaaminen ja poistaminen
 
-## Alustava tietokantakaavio
-**Tietokohteet:**
-* Ryhmä (käyttötarkoitus vielä pohdinnassa)
+## Tietokanta
+### Kuvaus
+*Tietokannassa on 4 taulua (Käyttäjä, Lanka, Vastaus ja Kategoria), joihin tallennetaan sovelluksen kannalta oleellinen data. Tietokannassa on myös yksi liitostaulu Käyttäjän ja Langan välillä, jolla pidetään kirjaa Langan luetuksi merkinneistä käyttäjistä.*
+
+#### Tietokohteet
 * Käyttäjä
 * Lanka (artikkeli, aloitusviesti)
 * Vastaus (aina ja vain lankaan)
 * Kategoria (aihe, tag, ylläpitäjän määrittelemä)
 
-![Projektin tietokantakaavio](https://yuml.me/504428db.png)
+### Tietokantakaavio
+*Todellisuudessa kaikilla tietokannan tauluilla on attribuutit date_created ja date_edited, mutta koska niitä ei koskaan käytetä sovelluksen toiminnassa, on ne jätetty selkeyden vuoksi pois tietokantakaaviosta.*
 
-[PDF](https://yuml.me/504428db.pdf) | [yUML](https://yuml.me/edit/504428db)
+![Projektin tietokantakaavio](https://yuml.me/7069ca1d.png)
+
+[PDF](http://yuml.me/7069ca1d.pdf) | [yUML](http://yuml.me/edit/7069ca1d)
