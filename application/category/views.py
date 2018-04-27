@@ -51,6 +51,7 @@ def delete_category(category_id):
         return redirect(url_for("categories_index"))
     
     # Delete the category from the database
+    Category.deleteAllMessages(category_id)
     c = Category.query.get(category_id)
     db.session().delete(c)
     db.session().commit()
