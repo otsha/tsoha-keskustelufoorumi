@@ -10,11 +10,24 @@ from application.reply.forms import ReplyForm, ReplyEditForm
 from application.readmessage.models import ReadMessage
 from application.category.models import Category
 
-from sqlalchemy import desc
+from sqlalchemy import desc, asc
 
-# GET the dashboard page
-@app.route("/messages/", methods=["GET"])
+# GET the dashboard page / POST update sorting
+@app.route("/messages/", methods=["GET", "POST"])
 def messages_index():
+
+    # Which way are the messages sorted?
+    if request.method == "POST":
+        if request.form.get("selected_sorting") == "age_asc":
+            return render_template("messages/list.html", messages = Message.query.order_by(asc(Message.date_created)).all())
+        elif request.form.get("selected_sorting") == "title_desc":
+            return render_template("messages/list.html", messages = Message.query.order_by(desc(Message.name)).all())
+        elif request.form.get("selected_sorting") == "title_asc":
+            return render_template("messages/list.html", messages = Message.query.order_by(asc(Message.name)).all())
+        else:
+            return render_template("messages/list.html", messages = Message.query.order_by(desc(Message.date_created)).all())
+
+    # Return the default order (newest first)
     return render_template("messages/list.html", messages = Message.query.order_by(desc(Message.date_created)).all())
 
 # HANDLE creating new messages
@@ -132,15 +145,34 @@ def message_edit(message_id):
 def messages_search():
     term = request.form.get("search")
 
+    # If the search terms are empty, show the Dashboard
     if term == "":
         return redirect(url_for("messages_index"))
 
     return redirect(url_for("messages_search_results", search_term = term))
 
-@app.route("/search/results/<search_term>", methods = ["GET"])
+# GET search results
+@app.route("/search/results/<search_term>", methods = ["GET", "POST"])
 def messages_search_results(search_term):
+
+    # Which way are the messages sorted?
+    if request.method == "POST":
+        if request.form.get("selected_sorting") == "age_asc":
+            messages = Message.query.filter(Message.name.like('%'+search_term+'%')).order_by(asc(Message.date_created)).all()
+            return render_template("messages/search.html", messages = messages, search_term = search_term)
+        elif request.form.get("selected_sorting") == "title_desc":
+            messages = Message.query.filter(Message.name.like('%'+search_term+'%')).order_by(desc(Message.name)).all()
+            return render_template("messages/search.html", messages = messages, search_term = search_term)
+        elif request.form.get("selected_sorting") == "title_asc":
+            messages = Message.query.filter(Message.name.like('%'+search_term+'%')).order_by(asc(Message.name)).all()
+            return render_template("messages/search.html", messages = messages, search_term = search_term)
+        else:
+            messages = Message.query.filter(Message.name.like('%'+search_term+'%')).order_by(desc(Message.date_created)).all()
+            return render_template("messages/search.html", messages = messages, search_term = search_term)
+
+    # If GET, return the default order (newest first)
     messages = Message.query.filter(Message.name.like('%'+search_term+'%')).order_by(desc(Message.date_created)).all()
-    return render_template("messages/search.html", messages = messages)
+    return render_template("messages/search.html", messages = messages, search_term = search_term)
 
 # GET new reply page
 @app.route("/messages/<message_id>/reply", methods = ["GET"])

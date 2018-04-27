@@ -3,6 +3,26 @@
 {% block body %}
     <h1>Search results</h1>
     <hr>
+
+    <form method="POST" action="{{ url_for('messages_search_results', search_term = search_term) }}">
+        <table>
+            <tr>
+                <td>
+                    <select class="form-control" name="selected_sorting">
+                        <option value="default">Age (Newest first)</option>
+                        <option value="age_asc">Age (Oldest first)</option>
+                        <option value="title_asc">Title (Ascending)</option>
+                        <option value="title_desc">Title (Descending)</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="btn btn-secondary" type="submit">Sort</button>
+                </td>
+            </tr>
+            
+        </table>
+    </form>
+    <hr>
     
     <table style="width:100%">
         <tr>
