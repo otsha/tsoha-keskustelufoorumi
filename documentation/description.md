@@ -16,7 +16,7 @@ Kerrataan aluksi vielä projektin kuvaus.
 - [x] Kirjoitusten poistaminen
 - [x] Kirjoitusten näyttäminen eri kriteerein
   - [x] Kategorioittain
-  - [x] Järjestäminen päiväyksen tai otsikon mukaan (toistaiseksi vain kategorioissa)
+  - [x] Järjestäminen päiväyksen tai otsikon mukaan
   - [x] Hakutoiminnallisuus (viestien otsikoista)
 - [x] Vastineen laatiminen ja muokkaus
   - [x] Laatiminen ja poisto
