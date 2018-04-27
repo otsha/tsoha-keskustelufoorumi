@@ -7,7 +7,7 @@ from application.category.forms import CategoryForm
 from application.message.models import Message
 from application.readmessage.models import ReadMessage
 
-from sqlalchemy import desc
+from sqlalchemy import desc, asc
 
 # GET the category listing page
 @app.route("/categories/", methods=["GET"])
@@ -57,8 +57,17 @@ def delete_category(category_id):
 
     return redirect(url_for("categories_index"))
 
-# GET the page for a specific categpry
-@app.route("/categories/<category_id>", methods=["GET"])
-def view_category(category_id):
+# GET the message listing for a specific category
+@app.route("/categories/<category_id>?<selected_sorting>", methods=["GET"])
+def view_category(category_id, selected_sorting):
     c = Category.query.get(category_id)
-    return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(desc(Message.date_created)).all())
+
+    # Which way are the messages sorted?
+    if selected_sorting == "age_asc":
+        return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(asc(Message.date_created)).all())
+    elif selected_sorting == "title_desc":
+        return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(desc(Message.name)).all())
+    elif selected_sorting == "title_asc":
+        return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(asc(Message.name)).all())
+    else:
+        return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(desc(Message.date_created)).all())
