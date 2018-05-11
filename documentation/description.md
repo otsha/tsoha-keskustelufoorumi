@@ -1,6 +1,10 @@
 # Projektin määrittelydokumentti
 
-Kerrataan aluksi vielä projektin kuvaus.
+*Tässä dokumentissa esitellään sovelluksen aihe, käyttötapaukset ja heikkoudet yleisellä tasolla. Tarkempi kuvaus sovelluksen toiminnasta löytyy [arkkitehtuuridokumentista](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/architecture.md).*
+
+**Aihe:** Keskustelufoorumi
+
+**Toteutus:** Python + Flask + SQLAlchemy + Jinja2
 
 ## Kuvaus
 
@@ -8,40 +12,43 @@ Kerrataan aluksi vielä projektin kuvaus.
 
 *Järjestelmän ylläpitäjällä on oma liittymä, jonka kautta hän ylläpitää järjestön käyttäjien jäsentietoja ja heidän kuulumistan eri ryhmiin, siivota kirjoituskantaa ja määrittellä aiheita, joiden perusteella kirjoituksia voi ryhmitellä.*
 
-## Toimintoja
+## Toiminnot
 
-- [x] Kirjautuminen
-- [x] Kirjoituksen lisääminen
-  - [x] Kirjoituksen kategorian määrittely
-- [x] Kirjoitusten poistaminen
-- [x] Kirjoitusten näyttäminen eri kriteerein
-  - [x] Kategorioittain
-  - [x] Järjestäminen päiväyksen tai otsikon mukaan
-  - [x] Hakutoiminnallisuus (viestien otsikoista)
-- [x] Vastineen laatiminen ja muokkaus
-  - [x] Laatiminen ja poisto
-  - [x] Muokkaus
-- [x] Langan luetuksi merkkaaminen
-- [x] Langan lukeneiden käyttääjien listaaminen
-- [x] Käyttäjän profiilin tarkastelu
-  - [x] Käyttäjän aloittamien lankojen listaaminen
-  - [x] Käyttäjän admin-statuksen muuttaminen
-- [x] Kategorioiden määrittely ja poisto
-- [ ] Ryhmän jäsenen lisääminen, muokkaaminen ja poistaminen
+### Rekisteröitymätön käyttäjä voi...
+- Selata foorumin sisältöä vapaasti:
+  - Lukea viestejä
+  - Lukea vastauksia
+  - Selata viestejä kategorioittain
+  - Käyttää järjestys- ja rajoitustoimintoja
+  - Hakea viestejä niiden nimen tai nimen osan perusteella
+  - Tarkastella käyttäjäprofiileita
+- Rekisteröityä uudeksi käyttäjäksi
 
-## Tietokanta
-### Kuvaus
-*Tietokannassa on 4 taulua (Käyttäjä, Lanka, Vastaus ja Kategoria), joihin tallennetaan sovelluksen kannalta oleellinen data. Tietokannassa on myös yksi liitostaulu Käyttäjän ja Langan välillä, jolla pidetään kirjaa Langan luetuksi merkinneistä käyttäjistä.*
+### Rekisteröitynyt käyttäjä voi...
+- Toteuttaa kaikki rekisteröitymättömälle käyttäjälle määritellyt toiminnot
+- Kirjautua sisään/ulos
+- Aloittaa uuden keskustelulangan haluamaansa kategoriaan
+- Vastata muiden käyttäjien aloittamiin keskustelulankoihin
+- Poistaa ja muokata omia kirjoituksiaan
 
-#### Tietokohteet
-* Käyttäjä
-* Lanka (artikkeli, aloitusviesti)
-* Vastaus (aina ja vain lankaan)
-* Kategoria (aihe, tag, ylläpitäjän määrittelemä)
+### Admin-tason käyttäjä voi...
+- Toteuttaa kaikki sekä rekisteröityneelle että rekisteröitymättömälle käyttäjälle määritellyt toiminnot
+- Poistaa ja muokata muiden käyttäjien kirjoituksia
+- Luoda ja poistaa kategorioita
+- Muuttaa muiden rekisteröityneiden käyttäjien admin-tasoa
+- Luopua admin-oikeuksistaan
 
-### Tietokantakaavio
-*Todellisuudessa kaikilla tietokannan tauluilla on attribuutit date_created ja date_edited, mutta koska niitä ei koskaan käytetä sovelluksen toiminnassa, on ne jätetty selkeyden vuoksi pois tietokantakaaviosta.*
+*Tarkemmat ohjeet toimintojen käyttämiseen [käyttöohjeessa](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/usermanual.md).*
 
-![Projektin tietokantakaavio](https://yuml.me/7069ca1d.png)
+## Sovelluksen puutteet ja heikkoudet
+- Ilmeisin puute sovelluksessa on kuvauksessa/tehtävänannossa määriteltyjen käyttäjäryhmien puute. Sovelluksessa on käytännössä vain kaksi varsinaista käyttäjäryhmää rekisteröitymättömien käyttäjien lisäksi: tavallinen käyttäjä ja admin-käyttäjä.
 
-[PDF](http://yuml.me/7069ca1d.pdf) | [yUML](http://yuml.me/edit/7069ca1d)
+- Myös hakutoiminnallisuus on vajavainen, sillä se toimii vain lankojen otsikoiden perusteella.
+
+- Ehdottomasti **vakavin** puute sovelluksessa on salasanojen tallentaminen tietokantaan plaintext-muodossa.
+
+- Arkkitehtuurillisesti suurin heikkous on se, että sovellukseen on toteutettu viestilistausnäkymä käytännössä kolmesti: yksi Dashboard-näkymää varten ``application/templates/messages/list.html``, toinen kategorian sisältönäkymää varten ``àpplication/templates/categories/category.html`` ja kolmas haun tulosnäkymää varten ``application/templates/messages/search.html``. Vähän enemmällä ajankäytöllä (ja toki hieman monimutkaisemmalla koodilla) yhtä näkymää olisi voinut käyttää kaikkiin tarkoituksiin.
+
+## Omat kokemukset
+- Uuden ohjelmointikielen ja webkehitystyövälineiden oppiminen toi mukavaa haastetta projektiin, muttei ollut liian raskasta, ainakaan heti *Tietokantojen perusteiden* jälkeen. Itseasiassa rohkenisin jopa sanoa, että Flask ja Jinja ovat suoraviivaisempia käyttää kuin Spark ja Thymeleaf.
+- Yllättäen omaksi suosikkiasiakseni kurssilla muodostui Bootstrap - ehkä juuri yksinkertaisuutensa (mutta myös muokattavuutensa) vuoksi.
