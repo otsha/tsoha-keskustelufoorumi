@@ -1,17 +1,21 @@
 # Keskustelufoorumi
 
-## Harjoitustyö kevään 2018 kurssille 'Tietokantasovellus' (tsoha)
+Harjoitustyö kevään 2018 kurssille 'Tietokantasovellus' (tsoha)
+
+## Dokumentaatio
 
 * [Projektin määrittelydokumentti](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/description.md)
 
+* [Sovelluksen arkkitehtuuri](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/architecture.md)
+  * [Tietokantakaavio](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/databasediagram.png)
+
 * [Sivuston käyttöohje](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/usermanual.md)
 
-* [Projektin alustava tietokantakaavio](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/databasediagram.png)
+## Testisovellus
 
 * Sovellus on livenä osoitteessa: (https://keskustelufoorumi-tsoha.herokuapp.com/)
   * Testikäyttäjätunnus (superuser): hello
   * Salasana: world
-  * **Autorisointi** tapahtuu tarkistamalla tietokannan 'Account' -taulusta attribuutti isSuper.
 
 ## Kuvaus:
 
