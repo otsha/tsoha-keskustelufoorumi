@@ -12,7 +12,7 @@
   - [Tietokantakaavio](#tietokantakaavio)
   - [SQL-kyselyt](#sql-kyselyt)
     - [CREATE TABLE -lauseet](#create-table--lauseet)
-    - [Yhteenvetokyselyt](#yhteenvetokyselyt)
+    - [Sovelluksen toiminnallisuudet](#sovelluksen-toiminnallisuudet)
 
 ## Sovelluksen rakenne
 Sovelluksen käynnistää nimellisesti repositorion juuressa sijaitseva ``run.py``. Varsinaisesta initialisaatiosta - mm. kirjastojen tuonnista, tietokannan konfiguroinnista ja alustuksesta - vastaa kansion ``/application`` tiedosto ``__init__.py``.
@@ -84,7 +84,6 @@ CREATE TABLE message (
         date_modified DATETIME,
         name VARCHAR(140) NOT NULL,
         content VARCHAR(1000) NOT NULL,
-        read BOOLEAN NOT NULL,
         account_id INTEGER NOT NULL,
         category_id INTEGER NOT NULL,
         PRIMARY KEY (id),
@@ -123,7 +122,18 @@ CREATE TABLE read_message (
 );
 ```
 
-#### Yhteenvetokyselyt
+#### Sovelluksen toiminnallisuudet
+Kuvataan joidenkin sovellusten päätoimintojen SQL-kyselyt. Kysymysmerkit (``?``) ovat kenttiä, joihin käyttäjän tai sovelluksen syöte tai toiminta vaikuttaa.
+
+##### Rekisteröityminen
+```SQL
+INSERT INTO Account (date_created, date_modified, username, password, isSuper) VALUES (?, ?, ?, ?, false);
+```
+
+##### Uuden viestin luominen
+```SQL
+INSERT INTO Message (date_created, date_modified, name, content, account_id, category_id) VALUES (?, ?, ?, ?, ?, ?);
+```
 
 ##### Oletusviestilistaus (10 uusinta)
 ```SQL
@@ -131,7 +141,7 @@ SELECT * FROM Message
         ORDER BY Message.date_created DESC
         LIMIT 10;
 ```
-Todellisuudessa sovellus pyytää kaikki viestit järjestettynä uusimmasta vanhimpaan ja sitten näyttää vain 10 ensimmäistä pythonin taulukosta SQL-limitin sijaan, mutta kyselyn voisi toteuttaa kokonaisuudessaan myös näinkin. Nykyratkaisu on käytössä koodin selkeyttämiseksi.
+Todellisuudessa sovellus pyytää kaikki viestit järjestettynä uusimmasta vanhimpaan ja sitten näyttää vain 10 ensimmäistä pythonin taulukosta SQL-limitin sijaan, mutta kyselyn voisi toteuttaa kokonaisuudessaan myös näinkin. Nykyratkaisu on käytössä koodin selkeyttämiseksi, mutta kuvatun SQL-kyselyn käyttäminen olisi tietenkin tehokkaampaa.
 
 ##### Kategorialistaus (aakkosjärjestyksessä)
 ```SQL
@@ -153,4 +163,17 @@ SELECT DISTINCT account_id FROM read_message
         WHERE read_message.message_id = ?
         AND read_message.user_id = ?;
 ```
-Jos kyselyn tuloksena on yksikin rivi (rivejä ei pitäisi olla useampaa), on käyttäjä merkinnyt viestin luetuksi.
+Jos kyselyn tuloksena on yksikin rivi (rivejä ei pitäisi olla kuin yksi), on käyttäjä merkinnyt viestin luetuksi.
+
+##### Haku ja käänteinen aakkosjärjestys
+```SQL
+SELECT * FROM Message
+        WHERE Message.name LIKE ?
+        ORDER BY Message.name DESC;
+```
+
+##### Langan kaikkien vastausten poistaminen (kun lanka poistetaan)
+```SQL
+DELETE FROM Reply
+        WHERE Reply.message_id = ?;
+```
