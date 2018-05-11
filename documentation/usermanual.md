@@ -1,11 +1,15 @@
 # Käyttöohje
 
 ## Sisällysluettelo
+- [Käyttöönotto](#sovelluksen-käyttöönotto)
+  - [Suorittaminen paikallisesti](#suorittaminen-paikallisesti)
+    - [Ensimmäiset admin-tunnukset](#ensimmäiset-admin-tunnukset)
 - [Käyttäjät](#käyttäjät)
   - [Rekisteröityminen ja kirjautuminen](#rekisteröityminen-ja-kirjautuminen)
     - [Uuden käyttäjätunnuksen luominen](#uuden-käyttäjätunnuksen-luominen)
     - [Sisäänkirjautuminen](#sisäänkirjautuminen)
   - [Käyttäjäprofiilien tarkastelu](#käyttäjäprofiilien-tarkastelu)
+  - [Admin-oikeudet](#admin-oikeudet)
 - [Kirjoitukset](#kirjoitukset)
   - [Uuden keskustelulangan avaaminen](#uuden-keskustelulangan-avaaminen)
   - [Vastineen laatiminen](#vastineen-laatiminen)
@@ -15,19 +19,52 @@
     - [Dashboard](#dashboard)
   - [Hakeminen](#hakeminen)
   - [Järjestäminen](#järjestäminen)
-  
+  - [Rajaaminen](#rajaaminen)
+
+## Sovelluksen käyttöönotto
+### Suorittaminen paikallisesti
+- Paikallisesti suoritettuna tarvitset:
+  - Vähintään Pythonin version 3.5
+  - Pythonin liitännäisten hallintaan tarkoitetun pip:in
+  - Jonkin Python-virtuaaliympäristön hallintaan soveltuvan liitännäisen - esim. venv
+
+- Kloonaa repositorio omalle laitteellesi.
+- Asenna sovelluksen vaatimat liitännäiset suorittamalla komento ``pip install -r requirements.txt`` repositorion juuressa.
+- Käynnistä virtuaaliympäristö - jos käytät venviä, komennolla ``source venv/bin/activate``.
+- Nyt voit käynnistää palvelimen paikallisesti komennolla ``python3 run.py``
+- Sovellukseen pääset menemällä web-selaimella osoitteeseen ``localhost:5000``.
+
+#### Ensimmäiset admin-tunnukset
+Admin-oikeudet täytyy antaa ensimmäiselle admin-tason käyttäjälle manuaalisesti.
+
+  - Varmista, että sinulla on jokin SQL-tietokannanhallintajärjestelmä asennettuna laitteellesi (esim. SQLite)
+
+Avaa tietokanta menemällä repositorion alikansioon ``/application`` ja suorittamalla:
+```
+sqlite3 database.db
+```
+
+Kopioi seuraava komento ja paina Enter: 
+```SQL
+UPDATE account SET isSuper = 1 WHERE account.id = 1;
+```
+
+Jos käytät jotakin muuta tietokannanhallintajärjestelmää kuin SQLite (esimerkiksi Herokussa postgreSQL:ää), komento voi olla hieman erilainen. postgreSQL-muodossa: 
+```
+UPDATE account SET "isSuper" = true WHERE account.id = 1;
+```
+
 ## Käyttäjät
 ### Rekisteröityminen ja kirjautuminen
 #### Uuden käyttäjätunnuksen luominen
 - Valitse sivuston oikeasta yläkulmasta valikkopalkista "Register"
-- Kirjoita lomakkeeseen haluamasi käyttäjätunnus ja salasana
+- Kirjoita lomakkeeseen haluamasi käyttäjätunnus ja salasana 
+  - (**HUOM!!!** Salasanat on toistaiseksi tallennettu plaintext-muodossa, joten tietoturvasi vuoksi on erityisen tärkeää, ettet käytä salasanaa, jota käytät jossakin muussa palvelussa.)
 - Klikkaa "Register" -painiketta
 - Uusi käyttäjätunnus on nyt luotu ja voit kirjautua sisään
 
 #### Sisäänkirjautuminen
 - Jos et ole vielä rekisteröitynyt, luo uusi tunnus
-  - Testikäyttäjätunnus: hello
-  - Salasana: world
 - Valitse sivuston oikeasta yläkulmasta valikkopalkista "Login"
 - Täytä lomakkeeseen käyttäjätunnuksesi ja salasanasi
 - Klikkaa "Log in" -painiketta
@@ -94,3 +131,10 @@
   - "Age (Oldest First)" järjestää viestit vanhimmasta uusimpaan niiden luontipäiväyksen mukaan.
   - "Title (Ascending)" järjestää viestit aakkosjärjestyksessä A:sta Ö:hön.
   - "Title (Descending)" puolestaan järjestää viestit käänteiseen aakkosjärjestykseen.
+
+### Rajaaminen
+- Oletuksena keskustelufoorumi näyttää 10 ensimmäistä viestiä ottaen huomioon valitsemasi järjestysvaihtoehdon.
+  - "Limit to 10" näyttää 10 ensimmäistä viestiä
+  - "Limit to 20" näyttää 20 ensimmäistä viestiä
+  - "Limit to 50" näyttää 50 ensimmäistä viestiä
+  - "Show all" ei rajoita viestien määrää listauksessa.
