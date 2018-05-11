@@ -65,13 +65,30 @@ def view_category(category_id):
 
     # Which way are the messages sorted?
     if request.method == "POST":
+        messages = []
+
+        # Get all messages based on the sorting method
         if request.form.get("selected_sorting") == "age_asc":
-            return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(asc(Message.date_created)).all())
+            messages = Message.query.filter_by(category_id = c.id).order_by(asc(Message.date_created)).all()
         elif request.form.get("selected_sorting") == "title_desc":
-            return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(desc(Message.name)).all())
+            messages = Message.query.filter_by(category_id = c.id).order_by(desc(Message.name)).all()
         elif request.form.get("selected_sorting") == "title_asc":
-            return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(asc(Message.name)).all())
+            messages = Message.query.filter_by(category_id = c.id).order_by(asc(Message.name)).all()
         else:
-            return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(desc(Message.date_created)).all())
-    
-    return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id=c.id).order_by(desc(Message.date_created)).all())
+            messages = Message.query.filter_by(category_id = c.id).order_by(desc(Message.date_created)).all()
+        
+        # Limit the message listing based on the selected limiting method
+        if request.form.get("selected_limiting") == "limit_20":
+            messages = messages[0:20]
+        elif request.form.get("selected_limiting") == "limit_50":
+            messages = messages[0:50]
+        elif request.form.get("selected_limiting") == "limit_none":
+            pass
+        else:
+            messages = messages[0:10]
+
+        # Finally return the listing as requested to be sorted and limited by the user
+        return render_template("categories/category.html", category = c, messages = messages)
+
+    # Return the default listing (newest first, limited to 10)
+    return render_template("categories/category.html", category = c, messages = Message.query.filter_by(category_id = c.id).order_by(desc(Message.date_created)).all()[0:10])
