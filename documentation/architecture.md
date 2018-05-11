@@ -15,8 +15,18 @@
     - [Yhteenvetokyselyt](#yhteenvetokyselyt)
 
 ## Sovelluksen rakenne
+Sovelluksen käynnistää nimellisesti repositorion juuressa sijaitseva ``run.py``. Varsinaisesta initialisaatiosta - mm. kirjastojen tuonnista, tietokannan konfiguroinnista ja alustuksesta - vastaa kansion ``/application`` tiedosto ``__init__.py``.
+
+Sovelluksen käyttämät tietueet sijaitsevat kansion ``/application`` alikansioissa niin, että jokaisen alikansion sisältö vastaa yhtä sovelluksen osa-aluetta. Esimerkiksi kansio ``/application/auth`` sisältää kaiken autentikaatioon ja käyttäjätileihin liittyvän koodin ja ``/application/message`` kaiken viesteihin liittyvän koodin.
+
+Tietuekansioiden sisällä ``views.py`` hoitaa tietueeseen liittyvien näkymien ja käyttäjän palvelimelle lähettämien pyyntöjen käsittelystä, kun taas ``models.py`` sisältää sovelluksen käyttämän mallin tietokannan tauluista. Mahdollinen ``forms.py`` puolestaan määrittelee tietueeseen liittyvien lomakkeiden sisällön ja validointivaatimukset.
+
+Käyttäjälle näytettävä sisältö - käyttöliittymä - sijaitsee kansiossa ``/application/templates``, jossa sisältö on myöskin jaettu alikansioihin osa-alueittain.
 
 ## Käyttöliittymä
+Kansioon ``/application/templates`` sijoitettu käyttöliittymä on toteutettu HTML:llä [Bootstrap](https://getbootstrap.com/) -kirjastoa tyylittelyssä apua käyttäen. Tietokannan tiedon näyttäminen (palvelimen ja käyttöliittymän välinen tiedonvälitys) on toteutettuna [Jinja2](http://jinja.pocoo.org/):lla.
+
+Käyttöliittymän runko sijaitsee tiedostossa ``/application/templates/layout.html``, jossa määritellään Bootstrapin käyttöönotto, sivuston otsikko (``<title>``), navigointipalkki ja varsinaiselle sisällölle varattu ``container``, jolla sivuston sisältö keskitetään mielekkäästi ruudun keskelle. Kaikki käyttöliittymän sivut toteuttavat käyttöliittymärungon.
 
 ## Tietokanta
 ### Tietokannan kuvaus
@@ -28,7 +38,7 @@ Tietokannassa on 4 taulua (Käyttäjä, Lanka, Vastaus ja Kategoria), joihin tal
 * Käyttäjä
 * Lanka (artikkeli, aloitusviesti)
 * Vastaus (aina ja vain lankaan)
-* Kategoria (aihe, tag, ylläpitäjän määrittelemä)
+* Kategoria (aihe, keskustelualue, määritellään langalle sitä aloittaessa)
 
 ### Tietokantakaavio
 *Todellisuudessa kaikilla tietokannan tauluilla on attribuutit date_created ja date_edited, sillä ne perustuvat yhteiseen Base-malliin (``application/models.py``), mutta koska niitä ei koskaan käytetä sovelluksen toiminnassa, on ne jätetty selkeyden vuoksi pois tietokantakaaviosta.*
