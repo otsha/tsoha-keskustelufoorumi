@@ -13,6 +13,7 @@
 *Järjestelmän ylläpitäjällä on oma liittymä, jonka kautta hän ylläpitää järjestön käyttäjien jäsentietoja ja heidän kuulumistan eri ryhmiin, siivota kirjoituskantaa ja määrittellä aiheita, joiden perusteella kirjoituksia voi ryhmitellä.*
 
 ## Toiminnot
+*Sovelluksen päätoimintoja on kuvattu myös SQL-muotoisina [arkkitehtuuridokumentissa](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/architecture.md#sovelluksen-toiminnallisuudet).*
 
 ### Rekisteröitymätön käyttäjä voi...
 - Selata foorumin sisältöä vapaasti:
@@ -51,4 +52,5 @@
 
 ## Omat kokemukset
 - Uuden ohjelmointikielen ja webkehitystyövälineiden oppiminen toi mukavaa haastetta projektiin, muttei ollut liian raskasta, ainakaan heti *Tietokantojen perusteiden* jälkeen. Itseasiassa rohkenisin jopa sanoa, että Flask ja Jinja ovat suoraviivaisempia käyttää kuin Spark ja Thymeleaf.
+- Toisaalta kussina, jolla on tarkoitus harjoitella nimenomaan tietokannan käyttöä ja tietokannan ympärille kehittämistä, tuntui oudolta, että varsinaisia SQL-kyselyitä ei tarvinnut juurikaan (monimutkaisempia kyselyitä lukuun ottamatta) käyttää, vaan toteutus onnistui SQLAlchemyllä. Ehkä yhtenä parannusehdotuksena kurssille olisi nimenomaan vielä enempi "puhtaan" SQL-kielen käyttö, kuten TiKaPe:n jälkimmäisessä harjoitustyössä.
 - Yllättäen omaksi suosikkiasiakseni kurssilla muodostui Bootstrap - ehkä juuri yksinkertaisuutensa (mutta myös muokattavuutensa) vuoksi.
