@@ -2,6 +2,12 @@
 
 Harjoitustyö kevään 2018 kurssille 'Tietokantasovellus' (tsoha)
 
+## Testisovellus
+
+* Sovellus on livenä osoitteessa: (https://keskustelufoorumi-tsoha.herokuapp.com/)
+  * Testikäyttäjätunnus (superuser): hello
+  * Salasana: world
+
 ## Dokumentaatio
 
 * [Projektin määrittelydokumentti](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/description.md)
@@ -10,12 +16,6 @@ Harjoitustyö kevään 2018 kurssille 'Tietokantasovellus' (tsoha)
   * [Tietokantakaavio](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/databasediagram.png)
 
 * [Sivuston käyttöohje](https://github.com/otsha/tsoha-keskustelufoorumi/blob/master/documentation/usermanual.md)
-
-## Testisovellus
-
-* Sovellus on livenä osoitteessa: (https://keskustelufoorumi-tsoha.herokuapp.com/)
-  * Testikäyttäjätunnus (superuser): hello
-  * Salasana: world
 
 ## Kuvaus:
 
